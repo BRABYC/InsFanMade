@@ -1,9 +1,10 @@
-#include <iostream>
-#include <string>
-#include "Item.h"
-#include "Equipment.h"
+#ifndef PLAYER_H
+#define PLAYER_H
 
-using namespace std;
+#include <iostream>
+#include <string>   
+#include "Item.h"
+#include "Equipment.h" 
 class Player {
     int HP;
     Item* mainHand;
@@ -39,16 +40,4 @@ public:
         delete eq;
     }
 };
-
-int main()
-{
-    Player P;
-    P.showEq();
-    P.displayPlayerStats();
-    P.setMainWeapon(3, 4);
-    P.setMainArmor(2, 1);
-    P.setMainWeapon(2, 0);
-    P.setMainArmor(2, 3);
-    P.displayPlayerStats();
-    return 0;
-}
+#endif
