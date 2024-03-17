@@ -22,5 +22,6 @@ SHOP                                                                            
 | Item 21 has been bought              |          | Equiped weapon: item 20   |    | > equip item (T) |
 |                                      |          | Equiped armor: item 4     |    | > sell item (Y)  |
 |                                      |          | Defence: 10               |    | > curse item (U) |
-|                                      |          | MP: 100                   |    | > buy item (I)   |
+|                                      |          | Gold: 10                  |    | > equip item     |
+|                                      |          | Damage: 20                |    | > buy item (I)   |
 +======================================+          +===========================+    +==================+

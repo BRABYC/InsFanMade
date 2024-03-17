@@ -7,6 +7,9 @@
 #include "Storage.h" 
 class Player {
     int HP;
+    int gold;
+    int damage;
+    int defence;
     Item* mainHand;
     Item* armor;
     Storage* eq;
@@ -32,9 +35,9 @@ public:
     }
     //display the player's inventory
     void showEq() {
-        cout <<"+===========================================+" << endl;
+        cout <<" +=============================================================================+ " << endl;
         eq->display();
-        cout <<"+===========================================+" << endl;
+        cout <<" +=============================================================================+ " << endl;
     }
     //display the player's stats and inventory
     void displayPlayerStats() {
@@ -43,9 +46,7 @@ public:
         cout << (armor != nullptr ? armor->name : "none") << endl;
         showEq();
     }
-    void moveInEquipment(){
-        char choice;
-        cin>>choice;
+    void moveInEquipment(char choice){
         eq->moveInEquipment(choice);
     }
     void deleteItem(){
@@ -55,6 +56,9 @@ public:
         cout<<"Enter y: ";
         cin>>y;
         eq->deleteItem(x-1, y-1);
+    }
+    void displayOneRow(int i){
+        eq->displayOneRow(i);
     }
     //destructor to not have memory leaks
     ~Player() {

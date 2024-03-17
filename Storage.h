@@ -29,18 +29,6 @@ public:
         }
         
     }
-    //deconstructor to free up memory
-    ~Storage() {
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                delete grid[i][j];
-            }
-        }
-        for(int j = 0; j < rows; j++) {
-            delete[] grid[j];
-        }
-        delete[] grid;
-    }
     //display the grid
     void display() {
         for(int i = 0; i < rows; i++) {
@@ -90,9 +78,35 @@ public:
             break;
         }
     }
+
     void deleteItem(int x, int y){
         delete grid[x][y];
         grid[x][y] = nullptr;
+    }
+    void displayOneRow(int whatRow){
+            cout<<"| ";
+            for(int j = 0; j < cols; j++) {
+                if(grid[whatRow][j] == grid[Xcoord][Ycoord]){
+                    cout << "[" << "\033[31m"<< (grid[whatRow][j] != nullptr ? grid[whatRow][j]->name : "none") << "\033[0m" << "]";
+                }
+                else{
+                    cout << "[" << (grid[whatRow][j] != nullptr ? grid[whatRow][j]->name : "none") << "]";
+                }
+                cout << "\t ";
+            }
+            cout << " |";
+    }
+    //deconstructor to free up memory
+    ~Storage() {
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                delete grid[i][j];
+            }
+        }
+        for(int j = 0; j < rows; j++) {
+            delete[] grid[j];
+        }
+        delete[] grid;
     }
 };
 
