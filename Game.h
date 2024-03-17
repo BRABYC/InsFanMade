@@ -9,6 +9,9 @@ private:
 public:
     Game(const Player& player) : player(player) {}
 
+    void PlayerInput() {
+        player.moveInEquipment();
+    }
     void showUI(){
         player.displayPlayerStats();
     }
