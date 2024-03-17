@@ -1,0 +1,26 @@
+INVENTORY                                                                          ITEM
++=============================================================================+    +==================+
+| item 0         item 1         item 2         item 3         item 4          |    |Name: item 7      |
+| none           item 6         item 7         item 8         item 9          |    |Damage: 5         |
+| item 10        item 11        item 12        item 13        item 14         |    |Price: 10         |
+| item 15        item 16        item 17        item 18        item 19         |    |Curse: Fire       |
+| item 20        item 21        item 22        item 23        item 24         |    |                  |
++=============================================================================+    |       /|\        |
+                                                                                   |       |||        |
+SHOP                                                                               |       |||        |
++=============================================================================+    |       |||        |
+| item 0         item 1         item 2         item 3         item 4          |    |       |||        |
+| none           item 6         item 7         item 8         item 9          |    |    ~-[{o}]-~     |
+| item 10        item 11        item 12        item 13        item 14         |    |       |/|        |
+| item 15        item 16        item 17        item 18        item 19         |    |       `0'        |
+| item 20        item 21        item 22        item 23        item 24         |    |                  |
++=============================================================================+    +==================+
+
++======================================+          +===========================+    +==================+
+| Item 0 has been equiped              |          | Player Stats:             |    | > use item (E)   | 
+| Item 13 has been sold                |          | HP: 100                   |    | > delete item (R)|
+| Item 21 has been bought              |          | Equiped weapon: item 20   |    | > equip item (T) |
+|                                      |          | Equiped armor: item 4     |    | > sell item (Y)  |
+|                                      |          | Defence: 10               |    | > curse item (U) |
+|                                      |          | MP: 100                   |    | > buy item (I)   |
++======================================+          +===========================+    +==================+

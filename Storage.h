@@ -90,5 +90,10 @@ public:
             break;
         }
     }
+    void deleteItem(int x, int y){
+        delete grid[x][y];
+        grid[x][y] = nullptr;
+    }
 };
+
 #endif // STORAGE_H

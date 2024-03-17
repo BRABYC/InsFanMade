@@ -48,6 +48,14 @@ public:
         cin>>choice;
         eq->moveInEquipment(choice);
     }
+    void deleteItem(){
+        int x, y;
+        cout<<"Enter x: ";
+        cin>>x;
+        cout<<"Enter y: ";
+        cin>>y;
+        eq->deleteItem(x-1, y-1);
+    }
     //destructor to not have memory leaks
     ~Player() {
         delete eq;
