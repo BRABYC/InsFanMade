@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Item.h"
-#include "Equipment.h"
+#include "Storage.h"
 #include "Player.h"
 
 using namespace std;

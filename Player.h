@@ -4,19 +4,19 @@
 #include <iostream>
 #include <string>   
 #include "Item.h"
-#include "Equipment.h" 
+#include "Storage.h" 
 class Player {
     int HP;
     Item* mainHand;
     Item* armor;
-    Equipment* eq;
+    Storage* eq;
 public:
     //constructor to initialize the player's HP to 100 and the mainHand and armor to nullptr
     Player() {
         HP = 100;
         mainHand = nullptr;
         armor = nullptr;
-        eq = new Equipment();
+        eq = new Storage();
     }
     //set main weapon using coordinates x and y COUNT FROM 1 NOT 0
     void setMainWeapon(int x, int y) {

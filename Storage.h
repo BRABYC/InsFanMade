@@ -1,5 +1,5 @@
-#ifndef EQUIPMENT_H //define EQUIPMENT_H for other files to use class Equipment
-#define EQUIPMENT_H
+#ifndef STORAGE_H //define STORAGE_H for other files to use class Equipment
+#define STORAGE_H
 
 #include <iostream>
 #include <string>
@@ -7,12 +7,12 @@
 
 using namespace std;
 
-class Equipment {
+class Storage {
     int rows;
     int cols;
 public:
     Item*** grid; //defina a 2D array of pointers to Item objects
-    Equipment(int rows = 5, int cols = 5) : rows{rows}, cols{cols} {
+    Storage(int rows = 5, int cols = 5) : rows{rows}, cols{cols} {
         grid = new Item**[rows]; //every array now has a array
         for(int i = 0; i < rows; i++) {
             grid[i] = new Item*[cols]; //every array now has a array
@@ -25,9 +25,10 @@ public:
                 count++;
             }
         }
+        grid[0][0]; //set position 0,0
     }
     //deconstructor to free up memory
-    ~Equipment() {
+    ~Storage() {
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
                 delete grid[i][j];
@@ -49,7 +50,20 @@ public:
             cout << " |" << endl;
         }
     }
+    void moveInEquipment(){
+        char choice;
+        int x,y = 0;
+        switch (choice)
+        {
+        case 'w':
+            grid[x][y] = grid[x-1][y];
+            break;
+        
+        default:
+            break;
+        }
+    }
 
 };
 
-#endif // EQUIPMENT_H
+#endif // STORAGE_H
