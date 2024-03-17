@@ -2,6 +2,8 @@
 #include <string>
 #include "Item.h"
 #include "Player.h"
+#include "Storage.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -9,6 +11,7 @@ using namespace std;
 int main()
 {
     Player P;
+    Game game(P);
     //P.showEq();
     P.displayPlayerStats();
     //P.setMainWeapon(1, 2);
@@ -16,9 +19,13 @@ int main()
     //P.setMainWeapon(2, 0);
     //P.setMainArmor(2, 3);
     //for(int i = 0; i < 10; i++){
-       // P.moveInEquipment();
-       P.deleteItem();
+      //  P.moveInEquipment();
+      // P.deleteItem();
+        //for(int i = 0; i < 5;i++){
+            //P.displayOneRow(i);
         P.displayPlayerStats();
+       //}
     //}
+
     return 0;
 }
