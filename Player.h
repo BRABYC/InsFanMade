@@ -43,6 +43,11 @@ public:
         cout << (armor != nullptr ? armor->name : "none") << endl;
         showEq();
     }
+    void moveInEquipment(){
+        char choice;
+        cin>>choice;
+        eq->moveInEquipment(choice);
+    }
     //destructor to not have memory leaks
     ~Player() {
         delete eq;

@@ -11,6 +11,8 @@ class Storage {
     int rows;
     int cols;
 public:
+    int Xcoord = 0;
+    int Ycoord = 0;
     Item*** grid; //defina a 2D array of pointers to Item objects
     Storage(int rows = 5, int cols = 5) : rows{rows}, cols{cols} {
         grid = new Item**[rows]; //every array now has a array
@@ -25,7 +27,7 @@ public:
                 count++;
             }
         }
-        grid[0][0]; //set position 0,0
+        
     }
     //deconstructor to free up memory
     ~Storage() {
@@ -44,26 +46,41 @@ public:
         for(int i = 0; i < rows; i++) {
             cout<<"| ";
             for(int j = 0; j < cols; j++) {
-                cout << "[" << (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "]";
+                if(grid[i][j] == grid[Xcoord][Ycoord]){
+                    cout << "[" << "\033[31m"<< (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "\033[0m" << "]";
+                }
+                else{
+                    cout << "[" << (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "]";
+                }
                 cout << "\t ";
             }
             cout << " |" << endl;
         }
     }
-    void moveInEquipment(){
-        char choice;
-        int x,y = 0;
-        switch (choice)
-        {
+
+    void moveInEquipment(char choice){
+        switch (choice){
         case 'w':
-            grid[x][y] = grid[x-1][y];
+            if(Xcoord != 0){
+                Xcoord--;
+            }
+            break;
+
+        case 's':
+            Xcoord++;
             break;
         
+        case 'a':
+            Ycoord--;
+            break;
+        
+        case 'd':
+            Ycoord++;
+            break;
+                    
         default:
             break;
         }
     }
-
 };
-
 #endif // STORAGE_H
