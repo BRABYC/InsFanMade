@@ -29,17 +29,13 @@ public:
         }
         
     }
-    //deconstructor to free up memory
-    ~Storage() {
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                delete grid[i][j];
-            }
-        }
-        for(int j = 0; j < rows; j++) {
-            delete[] grid[j];
-        }
-        delete[] grid;
+
+    int getRows() {
+		return rows;
+    }
+
+    int getCols() {
+		return cols;
     }
     //display the grid
     void display() {
@@ -58,41 +54,22 @@ public:
         }
     }
 
-    void moveInEquipment(char choice){
-        cout<<this->Xcoord<<endl;
-        switch (choice){
-        case 'w':
-            if(Xcoord != 0){
-                Xcoord--;
-            }
-            break;
-
-        case 's':
-            if(Xcoord != this->cols-1){
-                Xcoord++;
-            }
-            break;
-        
-        case 'a':
-            if(Ycoord != 0){
-                Ycoord--;
-            }
-            break;
-        
-        case 'd':
-            if(Ycoord != this->rows-1){
-                Ycoord++;
-
-            }
-            break;
-                    
-        default:
-            break;
-        }
-    }
-    void deleteItem(int x, int y){
+    void deleteItem(int x, int y) {
         delete grid[x][y];
         grid[x][y] = nullptr;
+    }
+    
+    //deconstructor to free up memory
+    ~Storage() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                delete grid[i][j];
+            }
+        }
+        for (int j = 0; j < rows; j++) {
+            delete[] grid[j];
+        }
+        delete[] grid;
     }
 };
 

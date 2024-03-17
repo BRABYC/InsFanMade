@@ -10,7 +10,10 @@ class Item {
 //atribbutes of the class
 public:
     string name;
-    Item(string name) : name{name} {}
+    string type;
+    int attack;
+    int defense;
+    Item(string name, string type, int defense, int attack) : name{ name }, type{ type }, defense{ defense }, attack{attack} {}
 };
 
 #endif //end ITEM_H so nothing under this will be included

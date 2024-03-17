@@ -21,14 +21,22 @@ public:
     //set main weapon using coordinates x and y COUNT FROM 1 NOT 0
     void setMainWeapon(int x, int y) {
         Item* temp = mainHand;
-        mainHand = eq->grid[y - 1][x - 1];
-        eq->grid[y - 1][x - 1] = temp;
+        cout << mainHand << endl;
+        cout << eq->grid[y][x] << endl;
+        temp = eq->grid[y][x];
+        eq->grid[y][x] = mainHand;
+        mainHand = temp;
+        cout << mainHand << endl;
     }
     //set main armor using coordinates x and y COUNT FROM 1 NOT 0
-    void setMainArmor(int i, int j) {
+    void setMainArmor(int x, int y) {
         Item* temp = armor;
-        armor = eq->grid[i][j];
-        eq->grid[i][j] = temp;
+        cout << armor << endl;
+        cout << eq->grid[y][x] << endl;
+        temp = eq->grid[y][x];
+        eq->grid[y][x] = armor;
+        armor = temp;
+        cout << armor << endl;
     }
     //display the player's inventory
     void showEq() {
@@ -43,18 +51,45 @@ public:
         cout << (armor != nullptr ? armor->name : "none") << endl;
         showEq();
     }
-    void moveInEquipment(){
+    void moveInEquipment() {
+        string answer;
         char choice;
-        cin>>choice;
-        eq->moveInEquipment(choice);
-    }
-    void deleteItem(){
-        int x, y;
-        cout<<"Enter x: ";
-        cin>>x;
-        cout<<"Enter y: ";
-        cin>>y;
-        eq->deleteItem(x-1, y-1);
+        cin >> choice;
+        cout << eq->Xcoord << endl;
+        switch (choice) {
+        case 'w':
+            if (eq->Xcoord != 0) {
+                eq->Xcoord--;
+            }
+            break;
+
+        case 's':
+            if (eq->Xcoord != eq->getCols() - 1) {
+                eq->Xcoord++;
+            }
+            break;
+
+        case 'a':
+            if (eq->Ycoord != 0) {
+                eq->Ycoord--;
+            }
+            break;
+
+        case 'd':
+            if (eq->Ycoord != eq->getRows() - 1) {
+                eq->Ycoord++;
+            }
+            break;
+        case 'x':
+            cout << "u sure? (y/n): ";
+            cin >> answer;
+            if (answer == "yes" or answer == "y") {
+                eq->deleteItem(eq->Xcoord, eq->Ycoord);
+            }
+            break;
+        default:
+            break;
+        }
     }
     //destructor to not have memory leaks
     ~Player() {
