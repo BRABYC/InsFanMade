@@ -15,7 +15,7 @@ int main()
     //P.setMainArmor(2, 1);
     //P.setMainWeapon(2, 0);
     //P.setMainArmor(2, 3);
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 10; i++){
         P.moveInEquipment();
         P.displayPlayerStats();
     }

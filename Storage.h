@@ -59,6 +59,7 @@ public:
     }
 
     void moveInEquipment(char choice){
+        cout<<this->Xcoord<<endl;
         switch (choice){
         case 'w':
             if(Xcoord != 0){
@@ -67,15 +68,22 @@ public:
             break;
 
         case 's':
-            Xcoord++;
+            if(Xcoord != this->cols-1){
+                Xcoord++;
+            }
             break;
         
         case 'a':
-            Ycoord--;
+            if(Ycoord != 0){
+                Ycoord--;
+            }
             break;
         
         case 'd':
-            Ycoord++;
+            if(Ycoord != this->rows-1){
+                Ycoord++;
+
+            }
             break;
                     
         default:
