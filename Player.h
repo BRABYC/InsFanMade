@@ -43,34 +43,30 @@ public:
     }
     //display the player's inventory
     void showEq() {
-        cout <<" +=============================================================================+ " << endl;
+        cout <<"+=============================================================================+" << endl;
         eq->display();
-        cout <<" +=============================================================================+ " << endl;
+        cout <<"+=============================================================================+" << endl;
     }
-    //display the player's stats and inventory
-    void displayPlayerStats() {
-        cout << "HP: " << HP << endl;
-        cout << (mainHand != nullptr ? mainHand->name : "none") << endl;
-        cout << (armor != nullptr ? armor->name : "none") << endl;
-        showEq();
-    }
+        //cout << (mainHand != nullptr ? mainHand->name : "none") << endl;
+        //cout << (armor != nullptr ? armor->name : "none") << endl;
     void moveInEquipment(char choice){
         eq->moveInEquipment(choice);
     }
-    void deleteItem(){
-        int x, y;
-        cout<<"Enter x: ";
-        cin>>x;
-        cout<<"Enter y: ";
-        cin>>y;
-        eq->deleteItem(x-1, y-1);
+    void getItemStats(){
+        eq->getItemStats();
     }
-    void displayOneRow(int i){
-        eq->displayOneRow(i);
+    void useItem(){
+        Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
+        if(current_item->type == "weapon"){
+            setMainWeapon(eq->Xcoord, eq->Ycoord);
+        }
+        else if(current_item->type == "armor"){
+            setMainArmor(eq->Xcoord, eq->Ycoord);
+        }
     }
     //destructor to not have memory leaks
-    ~Player() {
-        delete eq;
-    }
+        //~Player() {
+            //delete eq;  // Delete the Storage object
+        //}
 };
 #endif

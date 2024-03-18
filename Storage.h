@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Item.h"// Add the necessary include path for the "Item.h" header file
 
 using namespace std;
@@ -23,7 +24,7 @@ public:
         int count = 0;
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
-                grid[i][j] = new Item("item " + to_string(count));
+                grid[i][j] = new Item("item " + to_string(count), "weapon", 0, 0);
                 count++;
             }
         }
@@ -39,21 +40,23 @@ public:
     }
     //display the grid
     void display() {
-        for(int i = 0; i < rows; i++) {
-            cout<<"| ";
-            for(int j = 0; j < cols; j++) {
-                if(grid[i][j] == grid[Xcoord][Ycoord]){
-                    cout << "[" << "\033[31m"<< (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "\033[0m" << "]";
-                }
-                else{
-                    cout << "[" << (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "]";
-                }
-                cout << "\t ";
+    for (int i = 0; i < rows; i++) {
+        cout << "| ";
+        for (int j = 0; j < cols; j++) {
+            if (i == Xcoord && j == Ycoord) {
+                cout << "\033[31m"; // Set color to red
+                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "none");
+                cout << "\033[0m"; // Reset color
+            } else {
+                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "none");
             }
-            cout << " |" << endl;
         }
+        cout << " |" << endl;
     }
+}
 
+
+                    //cout << left << setw(5) << "\033[31m"<< (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "\033[0m";
     void moveInEquipment(char choice){
         cout<<this->Xcoord<<endl;
         switch (choice){
@@ -90,6 +93,22 @@ public:
         delete grid[x][y];
         grid[x][y] = nullptr;
     }
+    void getItemStats(){
+        Item* current_item = grid[Xcoord][Ycoord];
+        cout << "+=====================+" << endl;
+
+        // Adjusted setw to fit within 23 characters, including borders and spaces
+        cout << "| Name: " << left << setw(12) << current_item->name << "|" << endl;
+        cout << "| Type: " << left << setw(12) << current_item->type << "|" << endl;
+        cout << "| Curse: " << left << setw(11) << current_item->curse << "|" << endl;
+        cout << "| Attack: " << left << setw(10) << current_item->attack << "|" << endl;
+        cout << "| Defense: " << left << setw(9) << current_item->defense << "|" << endl;
+        cout << "| Price: " << left << setw(11) << current_item->price << "|" << endl;
+
+        cout << "+=====================+" << endl;
+    }
+
+
 };
 
 #endif // STORAGE_H

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -13,7 +14,9 @@ public:
     string type;
     int attack;
     int defense;
-    Item(string name, string type, int defense, int attack) : name{ name }, type{ type }, defense{ defense }, attack{attack} {}
+    int price;
+    string curse;
+    Item(string name = "item", string type = "weapon" ,int defense = 0, int attack = 0, int price = 10, string curse = "none") : name{ name }, type{ type }, defense{ defense }, attack{attack}, price{price}, curse{curse} {}
 };
 
 #endif //end ITEM_H so nothing under this will be included

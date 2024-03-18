@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Item.h"
 #include "Player.h"
 #include "Storage.h"
@@ -13,7 +14,10 @@ int main()
     Player P;
     Game game(P);
     //P.showEq();
-    P.displayPlayerStats();
+    for(int i = 0; i < 10;i++){
+        game.showUI();
+        game.input();
+    }
     //P.setMainWeapon(1, 2);
     //P.setMainArmor(2, 1);
     //P.setMainWeapon(2, 0);
@@ -23,7 +27,7 @@ int main()
       // P.deleteItem();
         //for(int i = 0; i < 5;i++){
             //P.displayOneRow(i);
-        P.displayPlayerStats();
+        //P.displayPlayerStats();
        //}
     //}
 
