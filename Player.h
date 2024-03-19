@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>   
+#include <vector>
 #include "Item.h"
 #include "Storage.h" 
 class Player {
@@ -10,6 +11,8 @@ class Player {
     int gold;
     int damage;
     int defence;
+    vector<string> weaponCurses;
+    vector<string> armorCurses;
     Item* mainHand;
     Item* armor;
     Storage* eq;
@@ -20,6 +23,8 @@ public:
         mainHand = nullptr;
         armor = nullptr;
         eq = new Storage();
+        weaponCurses = {"burning", "ice", "holy light", "fumo blessing", "bloodlust","grotesque" };
+        armorCurses = {"reinforced", "bloodstained","gaunt", "light", "flimsy" };
     }
     //set main weapon using coordinates x and y COUNT FROM 1 NOT 0
     void setMainWeapon(int x, int y) {
@@ -63,6 +68,38 @@ public:
         else if(current_item->type == "armor"){
             setMainArmor(eq->Xcoord, eq->Ycoord);
         }
+    }
+    string curseItem(){
+        Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
+        if(current_item->curse == "none"){
+            if(current_item->type == "weapon"){
+                current_item->curse = weaponCurses[rand() % 6];
+            }
+            else if(current_item->type == "armor"){
+                current_item->curse = armorCurses[rand() % 5];
+            }
+            else{
+                return "you can't curse this item";
+            }
+        }
+        return "you pray to all-mer... your prayer has been anwsered";
+    
+    }
+    string addItem(Item* item){
+        int rows = eq->getRows();
+        int cols = eq->getCols();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(eq->grid[i][j] == nullptr){
+                    eq->grid[i][j] = item;
+                    return "item added";
+                }
+            }
+
+        }
+    }
+    string dropItem(){
+
     }
     //destructor to not have memory leaks
         //~Player() {

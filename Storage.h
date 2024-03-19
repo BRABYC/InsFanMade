@@ -89,13 +89,9 @@ public:
             break;
         }
     }
-    void deleteItem(int x, int y){
-        delete grid[x][y];
-        grid[x][y] = nullptr;
-    }
     void getItemStats(){
         Item* current_item = grid[Xcoord][Ycoord];
-        cout << "+=====================+" << endl;
+        cout << "+====================+" << endl;
 
         // Adjusted setw to fit within 23 characters, including borders and spaces
         cout << "| Name: " << left << setw(12) << current_item->name << "|" << endl;
@@ -105,7 +101,7 @@ public:
         cout << "| Defense: " << left << setw(9) << current_item->defense << "|" << endl;
         cout << "| Price: " << left << setw(11) << current_item->price << "|" << endl;
 
-        cout << "+=====================+" << endl;
+        cout << "+====================+" << endl;
     }
 
 

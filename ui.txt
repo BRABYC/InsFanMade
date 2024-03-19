@@ -17,11 +17,11 @@
                                                                                    +==================+
 
 +======================================+          +===========================+    +====================+
-| Item 0 has been equiped              |          | Player Stats:             |    | > use item (E)     | 
-| Item 13 has been sold                |          | HP: 100                   |    | > delete item (R)  |
-| Item 21 has been bought              |          | Equiped weapon: item 20   |    | > equip item (T)   |
-|                                      |          | Equiped armor: item 4     |    | > sell item (Y)    |
-|                                      |          | Defence: 10               |    | > toggle store (T) |
-|                                      |          | Gold: 10                  |    |                    |
-|                                      |          | Damage: 20                |    | > buy item (I)     |
+| Item 0 has been equiped              |          | Player Stats:             |    | > use item (E)     | //player 
+| Item 13 has been sold                |          | HP: 100                   |    | > drop item (R)    | //player
+| Item 21 has been bought              |          | Equiped weapon: item 20   |    | > equip item (T)   | //player
+|                                      |          | Equiped armor: item 4     |    | > sell item (Y)    | //shop
+|                                      |          | Defence: 10               |    | > toggle store (T) | //player/shop
+|                                      |          | Gold: 10                  |    | > curse item (C)   | //player
+|                                      |          | Damage: 20                |    | > buy item (I)     | //shop
 +======================================+          +===========================+    +====================+
