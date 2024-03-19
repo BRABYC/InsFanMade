@@ -6,6 +6,8 @@
 #include "Storage.h"
 #include "Player.h"
 #include "Item.h"
+#include <tuple>
+#include <vector>
 
 using namespace std;
 
@@ -23,25 +25,32 @@ class Shop {
             cout <<"+=============================================================================+" << endl;
         }
 
-        #include "Player.h"
 
-        void buyItem(Player& player) {
-            int x = storage->Xcoord;
-            int y = storage->Ycoord;
-            if(storage->grid[y][x] != nullptr) {
-                
-
+    string buyItem(Player& player) {
+        int x, y;
+        if (storage->grid[storage->Xcoord][storage->Ycoord] != nullptr) {
+            tie(x, y) = player.DoIHaveSomeFreeSpace();
+            if (x == -1 && y == -1) {
+            } else {
+                if(player.doesThePlayerHaveTheGold(storage->grid[storage->Xcoord][storage->Ycoord]->price)){
+                    Storage* eq = player.getStorage();
+                    eq->grid[x][y] = storage->grid[storage->Xcoord][storage->Ycoord];
+                    storage->grid[storage->Ycoord][storage->Xcoord] = nullptr;
+                    storage->dropItem();
+                    return "Bought item";
+                }
             }
         }
+    }
+    
+
         void moveInStore(char choice) {
             storage->moveInEquipment(choice);
         }
+
         void getItemStats(){
             storage->getItemStats();
-        }
-
-
-    
+        }  
 
 
 };

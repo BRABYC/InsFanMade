@@ -4,15 +4,21 @@
 #include "Player.h"
 #include "Shop.h"
 #include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 class Game {
 private:
     Player player;
     bool shop_mode;
     Shop* shop;
+    vector<string> console;
+
 public:
     Game(const Player& player) : player(player) {
         shop_mode = false;
         shop = new Shop();
+        console.resize(5);
     }
     void showUI(){
         //system("CLS"); <------------- nie działa :(
@@ -21,7 +27,7 @@ public:
             shop->showUI();
             cout<<"ITEM STATS"<<endl;
             shop->getItemStats();
-            cout<<"ACTIONS"<< endl <<"+====================+"<<endl<< "| > buy item (B)     |"<<endl << "| > sell item (S)    |"<<endl << "| > exit store (T)   |"<<endl<<"+====================+"<<endl;
+            cout<<"ACTIONS"<< endl <<"+====================+"<<endl<< "| > buy item (B)     |"<<endl << "| > exit store (T)   |"<<endl<<"+====================+"<<endl;
         }
         else{
             cout<<"\033[31m"<<"|INVENTORY|"<<"\033[0m"<< " |STORE|"<<endl;
@@ -29,10 +35,23 @@ public:
             cout<<"ITEM STATS"<<endl;
             player.getItemStats();
             cout<<"ACTIONS"<<endl;
-            cout<<"+====================+"<<endl<< "| > move (WASD)      |"<<endl << "| > use item (E)     |"<<endl << "| > enter store (T)  |"<<endl<<"| > curse item (C)   |"<<endl<< "| > drop item (R)    |"<<endl<<"+====================+"<<endl;
+            cout<<"+====================+"<<endl<< "| > move (WASD)      |"<<endl << "| > use item (E)     |"<<endl << "| > enter store (T)  |"<<endl<<"| > curse item (C)   |"<<endl<< "| > drop item (R)    |"<<endl<< "| > sell item (G)    |"<<endl<<"+====================+"<<endl;
         }
+        cout<<"PLAYER STATS"<<endl;
+        player.getStats();
+        cout<<"CONSOLE"<<endl;
+        cout<<"+=================================+"<<endl;
+        if(console.size() > 5){
+            console.erase(console.begin());
+        }
+        for (int i = 0; i < console.size(); i++) {
+            cout << "| ";        
+            cout << left << setw(30) << console[i];
+            cout << " |" << endl;
+        }
+        cout<<"+=================================+"<<endl;
+}
 
-    }
     void input(){
         char player_input;
         cout<<"commit input crime: ";
@@ -40,13 +59,13 @@ public:
             switch(player_input)
             {
                 case 'e':
-                    player.useItem();
+                    console.push_back(player.useItem());
                     break;
                 case 'c':
-                    player.curseItem();
+                    console.push_back(player.curseItem());
                     break;
                 case 'r':
-                    player.dropItem();
+                    console.push_back(player.dropItem());
                     break;
         
                 case 'w': case 'a': case 's': case 'd':
@@ -59,9 +78,17 @@ public:
                     break;
                 case 't':
                     shop_mode = !shop_mode;
+                    break;
+                case 'b':
+                    if(shop_mode){
+                        console.push_back(shop->buyItem(player));
+                    }
+                    break;
+                case 'g':                    
+                    console.push_back(player.sellItem());
+                    break;
             
         }
-
     }
 };
 

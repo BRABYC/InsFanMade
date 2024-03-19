@@ -6,6 +6,8 @@
 #include <vector>
 #include "Item.h"
 #include "Storage.h" 
+#include <tuple>
+using namespace std;
 class Player {
     int HP;
     int gold;
@@ -23,26 +25,21 @@ public:
         mainHand = nullptr;
         armor = nullptr;
         eq = new Storage();
+        gold = 100;
         weaponCurses = {"burning", "ice", "holy light", "fumo blessing", "bloodlust","grotesque" };
         armorCurses = {"reinforced", "bloodstained","gaunt", "light", "flimsy" };
     }
     //set main weapon using coordinates x and y COUNT FROM 1 NOT 0
     void setMainWeapon(int x, int y) {
         Item* temp = mainHand;
-        cout <<"debug: equped before changing " << mainHand << " Item: " << (mainHand != nullptr ? mainHand->name : " nothing ") << endl;
-        cout << "debug: item before changing " << eq->grid[x][y] << " Item: " << (eq->grid[x][y] != nullptr ? eq->grid[x][y]->name : " nothing ") << endl;
         mainHand = (eq->grid[x][y] == nullptr ? nullptr : eq->grid[x][y]);
         eq->grid[x][y] = temp;
-        cout << "debug: equped after changing " << mainHand << " Item: " << (mainHand != nullptr ? mainHand->name : " nothing ") << endl;
     }
     //set main armor using coordinates x and y COUNT FROM 1 NOT 0
     void setMainArmor(int x, int y) {
         Item* temp = armor;
-        cout << "debug: equped before changing " << armor << endl;
-        cout << "debug: item before changing " << eq->grid[x][y] << endl;
         armor = (eq->grid[x][y] == nullptr ? nullptr : eq->grid[x][y]);
         eq->grid[x][y] = temp;
-        cout << "debug: equped after changing " << armor << endl;
     }
     //display the player's inventory
     void showEq() {
@@ -58,25 +55,32 @@ public:
     void getItemStats(){
         eq->getItemStats();
     }
-    void DoIHaveSomeFreeSpace() {
-        cout << eq->DoIHaveSomeFreeSpace() << endl;
+    tuple<int, int>DoIHaveSomeFreeSpace() {
+        int x,y;
+        tuple<int, int> result = eq->DoIHaveSomeFreeSpace();
+        tie(x, y) = result;
+        if(x == -1 && y == -1){return make_tuple(-1, -1);}
+        else{return make_tuple(x, y);}
     }
-    void useItem() {
+    string useItem() {
         Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
         if (current_item != nullptr) {
 
             if (current_item->type == "weapon") {
+                Item* temp = mainHand;
                 setMainWeapon(eq->Xcoord, eq->Ycoord);
+                addItem(temp);
+                return "Weapon equipped";
             }
             else if (current_item->type == "armor") {
-
+                Item* temp = armor;
                 setMainArmor(eq->Xcoord, eq->Ycoord);
+                addItem(temp);
+                return "Armor equipped";
+
             }
         }
-		else {
-			cout << "here nothing to equip" << endl;
-		}
-	}
+    }
     string curseItem(){
         Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
         if(current_item->curse == "none"){
@@ -93,21 +97,54 @@ public:
         return "you pray to all-mer... your prayer has been anwsered";
     
     }
-    string addItem(Item* item){
+    void addItem(Item* item){
         int rows = eq->getRows();
         int cols = eq->getCols();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if(eq->grid[i][j] == nullptr){
                     eq->grid[i][j] = item;
-                    return "item added";
                 }
             }
 
         }
     }
-    void dropItem(){
-       eq->grid[eq->Xcoord][eq->Ycoord] = nullptr;
+    string dropItem(){
+       eq->dropItem();
+       return "an item has been dropped";
+    }
+    Storage* getStorage(){
+        return eq;
+    }
+    bool doesThePlayerHaveTheGold(int price){
+        if(gold >= price){
+            gold -= price;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    string sellItem(){
+        Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
+        if(current_item != nullptr){
+            gold += current_item->price;
+            eq->grid[eq->Xcoord][eq->Ycoord] = nullptr;
+            return "item sold";
+        }
+        else{
+            return "nothing to sell";
+        }
+    }
+    void getStats() {
+        cout << "+=====================================+" << endl;
+        cout << "| HP:            " << left << setw(20) << HP << " |" << endl;
+        cout << "| Gold:          " << left << setw(20) << gold << " |" << endl;
+        cout << "| Damage:        " << left << setw(20) << damage << " |" << endl;
+        cout << "| Defence:       " << left << setw(20) << defence << " |" << endl;
+        cout << "| equipped weapon: " << left << setw(18) << (mainHand != nullptr ? mainHand->name : "none") << " |" << endl;
+        cout << "| equipped armor:  " << left << setw(18) << (armor != nullptr ? armor->name : "none") << " |" << endl;
+        cout << "+=====================================+" << endl;
     }
     //destructor to not have memory leaks
         //~Player() {

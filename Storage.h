@@ -5,7 +5,7 @@
 #include <string>
 #include <iomanip>
 #include "Item.h"// Add the necessary include path for the "Item.h" header file
-
+#include <tuple>
 using namespace std;
 
 class Storage {
@@ -45,27 +45,25 @@ public:
         for (int j = 0; j < cols; j++) {
             if (i == Xcoord && j == Ycoord) {
                 cout << "\033[31m"; // Set color to red
-                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : " ");
+                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
                 cout << "\033[0m"; // Reset color
             } else {
-                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : " ");
+                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
             }
         }
         cout << " |" << endl;
     }
 }
-    Item* DoIHaveSomeFreeSpace() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-				if (grid[i][j] == nullptr) {
-					return grid[i][j];
-				}
-			}
-	    }
-		return nullptr;
-    }
-
-                    //cout << left << setw(5) << "\033[31m"<< (grid[i][j] != nullptr ? grid[i][j]->name : "none") << "\033[0m";
+        tuple<int, int> DoIHaveSomeFreeSpace() { //for returning multiple values
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (grid[i][j] == nullptr) {
+                        return make_tuple(i, j);
+                    }
+                }
+            }
+            return make_tuple(-1, -1);
+        }
     void moveInEquipment(char choice){
         cout<<this->Xcoord<<endl;
         switch (choice){
@@ -123,6 +121,15 @@ public:
             cout << "+====================+" << endl;
         }
 
+    }
+    string dropItem(){
+        if(grid[Xcoord][Ycoord] != nullptr){
+            grid[Xcoord][Ycoord] = nullptr;
+            return "Item dropped";
+        }
+        else{
+            return "There is no item to drop";
+        }
     }
 
 
