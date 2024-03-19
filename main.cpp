@@ -14,7 +14,8 @@ int main()
     Player P;
     Game game(P);
     //P.showEq();
-    for(int i = 0; i < 10;i++){
+    while(true){
+		P.DoIHaveSomeFreeSpace();
         game.showUI();
         game.input();
     }

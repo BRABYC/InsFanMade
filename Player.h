@@ -29,22 +29,20 @@ public:
     //set main weapon using coordinates x and y COUNT FROM 1 NOT 0
     void setMainWeapon(int x, int y) {
         Item* temp = mainHand;
-        cout << mainHand << endl;
-        cout << eq->grid[y][x] << endl;
-        temp = eq->grid[y][x];
-        eq->grid[y][x] = mainHand;
-        mainHand = temp;
-        cout << mainHand << endl;
+        cout <<"debug: equped before changing " << mainHand << " Item: " << (mainHand != nullptr ? mainHand->name : " nothing ") << endl;
+        cout << "debug: item before changing " << eq->grid[x][y] << " Item: " << (eq->grid[x][y] != nullptr ? eq->grid[x][y]->name : " nothing ") << endl;
+        mainHand = (eq->grid[x][y] == nullptr ? nullptr : eq->grid[x][y]);
+        eq->grid[x][y] = temp;
+        cout << "debug: equped after changing " << mainHand << " Item: " << (mainHand != nullptr ? mainHand->name : " nothing ") << endl;
     }
     //set main armor using coordinates x and y COUNT FROM 1 NOT 0
     void setMainArmor(int x, int y) {
         Item* temp = armor;
-        cout << armor << endl;
-        cout << eq->grid[y][x] << endl;
-        temp = eq->grid[y][x];
-        eq->grid[y][x] = armor;
-        armor = temp;
-        cout << armor << endl;
+        cout << "debug: equped before changing " << armor << endl;
+        cout << "debug: item before changing " << eq->grid[x][y] << endl;
+        armor = (eq->grid[x][y] == nullptr ? nullptr : eq->grid[x][y]);
+        eq->grid[x][y] = temp;
+        cout << "debug: equped after changing " << armor << endl;
     }
     //display the player's inventory
     void showEq() {
@@ -60,15 +58,25 @@ public:
     void getItemStats(){
         eq->getItemStats();
     }
-    void useItem(){
-        Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
-        if(current_item->type == "weapon"){
-            setMainWeapon(eq->Xcoord, eq->Ycoord);
-        }
-        else if(current_item->type == "armor"){
-            setMainArmor(eq->Xcoord, eq->Ycoord);
-        }
+    void DoIHaveSomeFreeSpace() {
+        cout << eq->DoIHaveSomeFreeSpace() << endl;
     }
+    void useItem() {
+        Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
+        if (current_item != nullptr) {
+
+            if (current_item->type == "weapon") {
+                setMainWeapon(eq->Xcoord, eq->Ycoord);
+            }
+            else if (current_item->type == "armor") {
+
+                setMainArmor(eq->Xcoord, eq->Ycoord);
+            }
+        }
+		else {
+			cout << "here nothing to equip" << endl;
+		}
+	}
     string curseItem(){
         Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
         if(current_item->curse == "none"){
@@ -98,8 +106,8 @@ public:
 
         }
     }
-    string dropItem(){
-
+    void dropItem(){
+       eq->grid[eq->Xcoord][eq->Ycoord] = nullptr;
     }
     //destructor to not have memory leaks
         //~Player() {

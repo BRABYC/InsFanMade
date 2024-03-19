@@ -29,8 +29,8 @@ class Shop {
             int x = storage->Xcoord;
             int y = storage->Ycoord;
             if(storage->grid[y][x] != nullptr) {
-                player.addItem(storage->grid[y][x]); // Modify this line
-                storage->grid[y][x] = nullptr;
+                
+
             }
         }
         void moveInStore(char choice) {
