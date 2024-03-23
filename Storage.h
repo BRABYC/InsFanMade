@@ -24,7 +24,10 @@ public:
         int count = 0;
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
-                grid[i][j] = new Item("item " + to_string(count), "weapon", 0, 0);
+                int whatToAdd = rand()% 3;
+                if(whatToAdd == 0) grid[i][j] = new Weapon();
+                else if(whatToAdd == 1) grid[i][j] = new Armor();
+                else grid[i][j] = nullptr;
                 count++;
             }
         }
@@ -45,10 +48,10 @@ public:
         for (int j = 0; j < cols; j++) {
             if (i == Xcoord && j == Ycoord) {
                 cout << "\033[31m"; // Set color to red
-                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
                 cout << "\033[0m"; // Reset color
             } else {
-                cout << left << setw(15) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
             }
         }
         cout << " |" << endl;
@@ -99,25 +102,27 @@ public:
     void getItemStats(){
 		if (grid[Xcoord][Ycoord] != nullptr) {
             Item* current_item = grid[Xcoord][Ycoord];
-            cout << "+====================+" << endl;
+            cout << "+========================+" << endl;
 
             // Adjusted setw to fit within 23 characters, including borders and spaces
-            cout << "| Name: " << left << setw(12) << current_item->name << "|" << endl;
-            cout << "| Type: " << left << setw(12) << current_item->type << "|" << endl;
-            cout << "| Curse: " << left << setw(11) << current_item->curse << "|" << endl;
-            cout << "| Attack: " << left << setw(10) << current_item->attack << "|" << endl;
-            cout << "| Defense: " << left << setw(9) << current_item->defense << "|" << endl;
-            cout << "| Price: " << left << setw(11) << current_item->price << "|" << endl;
+            cout << "| Name: " << left << setw(17) << current_item->name << "|" << endl;
+            cout << "| Curse: " << left << setw(16) << current_item->curse << "|" << endl;
+            if (dynamic_cast<Weapon*>(current_item)) {
+                Weapon* weapon = dynamic_cast<Weapon*>(current_item);
+                cout << "| Attack: " << left << setw(15) << weapon->attack << "|" << endl;
+            }
+            else if (dynamic_cast<Armor*>(current_item)) {
+                Armor* armor = dynamic_cast<Armor*>(current_item);
+                cout << "| Defence: " << left << setw(14) << armor->defence << "|" << endl;
+            }
 
-            cout << "+====================+" << endl;
+            cout << "| Price: " << left << setw(16) << current_item->price << "|" << endl;
+
+            cout << "+========================+" << endl;
         }
         else {
             cout << "+====================+" << endl;
-            cout << " " << endl;
-            cout << " " << endl;
-            cout << "| Nothing  |" << endl;
-            cout << " " << endl;
-            cout << " " << endl;
+            cout << "| Nothing            |" << endl;
             cout << "+====================+" << endl;
         }
 

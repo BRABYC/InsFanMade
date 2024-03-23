@@ -31,6 +31,7 @@ class Shop {
         if (storage->grid[storage->Xcoord][storage->Ycoord] != nullptr) {
             tie(x, y) = player.DoIHaveSomeFreeSpace();
             if (x == -1 && y == -1) {
+                return "No space in inventory";
             } else {
                 if(player.doesThePlayerHaveTheGold(storage->grid[storage->Xcoord][storage->Ycoord]->price)){
                     Storage* eq = player.getStorage();
@@ -39,10 +40,13 @@ class Shop {
                     storage->dropItem();
                     return "Bought item";
                 }
+                else{
+                    return "Not enough gold";
+                }
             }
         }
-    }
-    
+        return "oh yes i am an error, uwu boy władzio should fix me rigth up~";
+    }   
 
         void moveInStore(char choice) {
             storage->moveInEquipment(choice);
