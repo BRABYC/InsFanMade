@@ -146,5 +146,10 @@ public:
         cout << "+=====================================+" << endl;
     }
 
+    string sortInvertory() {
+		eq->sortInventory();
+        return "Inventory sorted in descending order of price";
+    }
+
 };
 #endif

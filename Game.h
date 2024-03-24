@@ -67,7 +67,7 @@ public:
                 case 'r':
                     console.push_back(player.dropItem());
                     break;
-        
+                
                 case 'w': case 'a': case 's': case 'd':
                     if(shop_mode){
                         shop->moveInStore(player_input);
@@ -87,7 +87,10 @@ public:
                 case 'g':                    
                     console.push_back(player.sellItem());
                     break;
-            
+                case 'f':
+                    console.push_back(player.sortInvertory());
+                    break;
+                
         }
     }
 };

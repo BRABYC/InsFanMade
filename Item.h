@@ -17,7 +17,7 @@ public:
     vector<string> names1;
     vector<string> names2;
     vector<string> names3;
-    Item(string name = "none" , int price = 10, string curse = "none") : name{ name }, price{price}, curse{curse} {}
+    Item(string name = "none" , int price = 0, string curse = "none") : name{ name }, price{price}, curse{curse} {}
     virtual ~Item() {} // Virtual destructor, needed for polymorphism, so that classes that derive from item can acces it and be considerd similar to Item
 
     virtual void applyCurse(const string& curse) {
@@ -30,7 +30,7 @@ public:
 class Weapon : public Item {
 public:
     int attack;
-   Weapon(string name = "none", int attack = 10, int price = 10, string curse = "none") : Item(name, price, curse) {
+   Weapon(string name = "none", int attack = 10, string curse = "none") : Item(name, price, curse) {
         this->attack = rand() % 10 + 30;
         names1 = { "sword", "axe", "mace", "spear", "bow", "crossbow", "dagger", "staff", "wand", "club" };
         names2 = { "of the", "of"};
@@ -38,7 +38,7 @@ public:
         if (name == "none") {
             this->name = names1[rand() % names1.size()] + " " + names2[rand() % names2.size()] + " " + names3[rand() % names3.size()];
         }
-
+        this->price = rand() % 10;
    }
 };
 class Armor : public Item {

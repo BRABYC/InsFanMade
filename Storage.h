@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "Item.h"// Add the necessary include path for the "Item.h" header file
 #include <tuple>
+#include <algorithm>
 using namespace std;
 
 class Storage {
@@ -137,7 +138,51 @@ public:
         }
     }
 
+    bool compareByPrice(const Item* item1, const Item* item2) {
+        // If either item is nullptr, place it after the other
+        if (item1 == nullptr) return false;
+        if (item2 == nullptr) return true;
 
+        return item1->price < item2->price;
+    }
+
+    string sortInventory() {
+        // Create a temporary array to hold all non-null items
+        vector<Item*> tempItems;
+
+        // Extract all non-null items from the grid
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (grid[i][j] != nullptr) {
+                    tempItems.push_back(grid[i][j]);
+                }
+            }
+        }
+
+        // Sort the items using the static compare function
+		for (int i = 0; i < tempItems.size(); i++) {
+			for (int j = i + 1; j < tempItems.size(); j++) {
+				if (compareByPrice(tempItems[i], tempItems[j])) {
+					swap(tempItems[i], tempItems[j]);
+				}
+			}
+		}
+
+        // Re-populate the grid with the sorted items
+        int index = 0;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (index < tempItems.size()) {
+                    grid[i][j] = tempItems[index++];
+                }
+                else {
+                    grid[i][j] = nullptr;
+                }
+            }
+        }
+
+        return "Inventory sorted in descending order of price";
+    }
 };
 
 #endif // STORAGE_H

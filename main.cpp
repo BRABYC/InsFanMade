@@ -25,8 +25,8 @@ int main()
     Game game(P);
     //P.showEq();
     while (true){
-		//if (os_name == "Windows") system("cls");
-    //else system("clear"); 
+		if (os_name == "Windows") system("cls");
+        else system("clear"); 
 		P.DoIHaveSomeFreeSpace();
         game.showUI();
         game.input();
