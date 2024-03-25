@@ -90,7 +90,13 @@ public:
                 case 'f':
                     console.push_back(player.sortInvertory());
                     break;
-                
+                case 'h':
+                    console.push_back(player.unEquipArmor());
+                    break;
+                case 'n':
+                    console.push_back(player.unEquipWeapon());
+                    break;
+
         }
     }
 };

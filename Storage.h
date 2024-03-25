@@ -7,6 +7,8 @@
 #include "Item.h"// Add the necessary include path for the "Item.h" header file
 #include <tuple>
 #include <algorithm>
+#include <fstream>
+#include <ctime> 
 using namespace std;
 
 class Storage {
@@ -35,6 +37,8 @@ public:
         
     }
 
+
+
     int getRows() {
 		return rows;
     }
@@ -42,6 +46,11 @@ public:
     int getCols() {
 		return cols;
     }
+
+
+   
+
+
     //display the grid
     void display() {
     for (int i = 0; i < rows; i++) {

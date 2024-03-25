@@ -47,7 +47,33 @@ public:
         if(x == -1 && y == -1){return make_tuple(-1, -1);}
         else{return make_tuple(x, y);}
     }
-    string useItem() {
+
+    string unEquipArmor() {
+        int x, y;
+        tie(x, y) = DoIHaveSomeFreeSpace();
+        if (x == -1 && y == -1) {
+            return "No space in inventory";
+        }
+        else {
+            eq->grid[x][y] = armor;
+			armor = nullptr;
+            return "Armor has unequiped";
+        }
+    }
+
+    string unEquipWeapon() {
+        int x, y;
+        tie(x, y) = DoIHaveSomeFreeSpace();
+        if (x == -1 && y == -1) {
+            return "No space in inventory";
+        }
+        else {
+            eq->grid[x][y] = mainHand;
+            mainHand = nullptr;
+            return "Weapon has unequiped";
+        }
+    }
+     string useItem() {
         Item* current_item = eq->grid[eq->Xcoord][eq->Ycoord];
         if (current_item != nullptr) {
             Weapon* weaponPtr = dynamic_cast<Weapon*>(current_item);
@@ -151,5 +177,6 @@ public:
         return "Inventory sorted in descending order of price";
     }
 
+ 
 };
 #endif
