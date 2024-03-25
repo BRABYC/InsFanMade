@@ -96,7 +96,12 @@ public:
                 case 'n':
                     console.push_back(player.unEquipWeapon());
                     break;
-
+                case 'k':
+                    console.push_back(player.saveInventory());
+                    break;
+                case 'l':
+                    console.push_back(player.loadInventory());
+                    break;
         }
     }
 };

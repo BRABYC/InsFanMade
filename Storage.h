@@ -8,7 +8,8 @@
 #include <tuple>
 #include <algorithm>
 #include <fstream>
-#include <ctime> 
+#include <sstream>
+
 using namespace std;
 
 class Storage {
@@ -47,8 +48,90 @@ public:
 		return cols;
     }
 
+    // Function to save inventory to file
+    void saveInventoryToFile(const string& filename) {
+        ofstream outfile(filename);
+        if (outfile.is_open()) {
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    if (grid[i][j] != nullptr) {
+                        if (dynamic_cast<Weapon*>(grid[i][j])) {
+                            Weapon* weapon = dynamic_cast<Weapon*>(grid[i][j]);
+                            outfile << "weapon," << weapon->name << "," << weapon->price << "," << weapon->attack << "," << weapon->curse << endl;
+                        }
+                        else if (dynamic_cast<Armor*>(grid[i][j])) {
+                            Armor* armor = dynamic_cast<Armor*>(grid[i][j]);
+                            outfile << "armor," << armor->name << "," << armor->price << "," << armor->defence << "," << armor->curse << endl;
+                        }
+                    }
+                    else {
+                        outfile << "empty" << endl;
+                    }
+                }
+            }
+            cout << "Inventory saved to file." << endl;
+        }
+        else {
+            cout << "Error: Unable to open file for saving inventory." << endl;
+        }
+        outfile.close();
+    }
 
-   
+    // Function to read from file and fill storage grid with items
+    void readInventoryFromFile(const string& filename) {
+        ifstream infile(filename);
+        if (infile.is_open()) {
+            string line;
+            int row = 0, col = 0;
+            while (getline(infile, line)) {
+                if (line == "empty") {
+                    grid[row][col] = nullptr;
+                }
+                else {
+                    stringstream ss(line);
+                    string type;
+                    getline(ss, type, ',');
+                    if (type == "weapon") {
+                        string name;
+                        int price, attack;
+                        string curse;
+                        getline(ss, name, ',');
+                        ss >> price;
+                        ss.ignore(); // Ignore the comma
+                        ss >> attack;
+                        ss.ignore(); // Ignore the comma
+                        getline(ss, curse);
+                        grid[row][col] = new Weapon(name, attack, curse);
+                    }
+                    else if (type == "armor") {
+                        string name;
+                        int price, defense;
+                        string curse;
+                        getline(ss, name, ',');
+                        ss >> price;
+                        ss.ignore(); // Ignore the comma
+                        ss >> defense;
+                        ss.ignore(); // Ignore the comma
+                        getline(ss, curse);
+                        grid[row][col] = new Armor(name, defense, price, curse);
+                    }
+                }
+                col++;
+                if (col >= cols) {
+                    col = 0;
+                    row++;
+                    if (row >= rows) {
+                        break; // Prevent reading more lines than the grid size
+                    }
+                }
+            }
+            cout << "Inventory loaded from file." << endl;
+        }
+        else {
+            cout << "Error: Unable to open file for reading inventory." << endl;
+        }
+        infile.close();
+    }
 
 
     //display the grid

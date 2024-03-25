@@ -177,6 +177,16 @@ public:
         return "Inventory sorted in descending order of price";
     }
 
+    string saveInventory() {
+        eq->saveInventoryToFile("InventorySave.txt");
+        return "saved";
+    }
+
+    string loadInventory() {
+        eq->readInventoryFromFile("InventorySave.txt");
+        return "loaded";
+    }
+
  
 };
 #endif
