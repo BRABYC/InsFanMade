@@ -101,7 +101,7 @@ public:
                         ss >> attack;
                         ss.ignore(); // Ignore the comma
                         getline(ss, curse);
-                        grid[row][col] = new Weapon(name, attack, curse);
+                        grid[row][col] = new Weapon(name, attack, price, curse);
                     }
                     else if (type == "armor") {
                         string name;

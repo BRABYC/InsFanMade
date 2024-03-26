@@ -30,7 +30,7 @@ public:
 class Weapon : public Item {
 public:
     int attack;
-   Weapon(string name = "none", int attack = 10, string curse = "none") : Item(name, price, curse) {
+    Weapon(string name = "none", int attack = 10, int price = -1, string curse = "none") : Item(name, price, curse) {
         this->attack = rand() % 10 + 30;
         names1 = { "sword", "axe", "mace", "spear", "bow", "crossbow", "dagger", "staff", "wand", "club" };
         names2 = { "of the", "of"};
@@ -38,18 +38,24 @@ public:
         if (name == "none") {
             this->name = names1[rand() % names1.size()] + " " + names2[rand() % names2.size()] + " " + names3[rand() % names3.size()];
         }
-        this->price = rand() % 10;
+        if (price == -1) {
+            this->price = rand() % 100;
+        }
+        
    }
 };
 class Armor : public Item {
 public:
     int defence;
-    Armor(string name = "none", int defense = 10, int price = 10, string curse = "none") : Item(name, price, curse) {\
+    Armor(string name = "none", int defense = 10, int price = -1, string curse = "none") : Item(name, price, curse) {\
         this->defence = rand() % 10 + 30;
         names1 = { "pain", "crimson", "shadow", "gaunt", "iron", "high priest's", "darkness", "femboy", "holy", "unholy" };
         names3 = { "chestplate", "robe", "helmet", "arm guards", "shoes", "thigh-highs", "bascinet", "cuirass", "robes", "outfit" };
         if (name == "none") {
             this->name = names1[rand() % names1.size()] + " " + names3[rand() % names3.size()];
+        }
+        if (price == -1) {
+            this->price = rand() % 100;
         }
     }
 };

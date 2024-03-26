@@ -24,7 +24,7 @@ public:
         HP = 100;
         mainHand = nullptr;
         armor = nullptr;
-        eq = new Storage();
+        eq = new Storage(5, 5);
         gold = 100;
         weaponCurses = {"burning", "ice", "holy light", "fumo blessing", "bloodlust","grotesque" };
         armorCurses = {"reinforced", "bloodstained","gaunt", "light", "flimsy" };
