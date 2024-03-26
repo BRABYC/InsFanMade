@@ -103,7 +103,11 @@ public:
                     console.push_back(player.loadInventory());
                     break;
                 case 'r':
-                    console.push_back(player.randomizeInventory());
+                    if (shop_mode) console.push_back(shop->randomizeShop());
+                    else console.push_back(player.randomizeInventory());
+                    break;
+                case 'o':
+                    console.push_back(player.OpenCase());
                     break;
         }
     }

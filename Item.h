@@ -8,12 +8,12 @@
 
 using namespace std;
 
-int RandomiseRarity() {
-    int uncommonRand = rand() % 20;
-    int rareRand = rand() % 40;
-    int epicRand = rand() % 80;
-    int legendaryRand = rand() % 150;
-    int japierdoleRand = rand() % 1000;
+int RandomiseRarity(int uncommonNum, int rareNum, int epicNum, int legendaryNum, int japierdoleNum) {
+    int uncommonRand = rand() % uncommonNum;
+    int rareRand = rand() % rareNum;
+    int epicRand = rand() % epicNum;
+    int legendaryRand = rand() % legendaryNum;
+    int japierdoleRand = rand() % japierdoleNum;
     if (japierdoleRand == 1) {
         return 5;
     }
@@ -29,9 +29,9 @@ int RandomiseRarity() {
     else if (uncommonRand == 1) {
         return 1;
     }
-    else {
-        return 0;
-    }
+	else {
+		return 0;
+	}
 }
 
 class Item {
@@ -72,7 +72,7 @@ public:
             this->price = rand() % 100;
         }
         if (rarity == "none") {
-            this->rarity = rarities[RandomiseRarity()];
+            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
         }
    }
 };
@@ -91,7 +91,7 @@ public:
             this->price = rand() % 100;
         }
         if (rarity == "none") {
-            this->rarity = rarities[RandomiseRarity()];
+            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
         }
     }
 };

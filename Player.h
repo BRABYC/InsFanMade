@@ -9,6 +9,7 @@
 #include <tuple>
 using namespace std;
 class Player {
+private:
     int HP;
     int gold;
     int damage;
@@ -191,6 +192,29 @@ public:
 		eq->randomizeInventory();
 		return "randomized";
     }
- 
+    
+    string OpenCase() {
+        int x, y;
+        tie(x, y) = eq->DoIHaveSomeFreeSpace();
+        if (x == -1 && y == -1) {
+            return "No space in inventory";
+        }
+        else {
+            if (doesThePlayerHaveTheGold(0)) {
+                int whatToAdd = rand() % 1;
+                vector<string> rarities = { "common", "uncommon", "rare", "epic", "legendary", "Hakurei" };
+                int randNum = RandomiseRarity(1, 1, 10, 20, 40);
+                string rarity;
+                if (randNum == 0) rarity = rarities[2];
+                else rarity = rarities[randNum];
+                if (whatToAdd == 0) eq->grid[x][y] = new Weapon("none", 10, -1, "none", rarity);
+                else if (whatToAdd == 1) eq->grid[x][y] = new Armor("none", 10, -1, "none", rarity);
+                return "Case opened";
+            }
+            else {
+                return "Not enough gold";
+            }
+        }
+    }
 };
 #endif

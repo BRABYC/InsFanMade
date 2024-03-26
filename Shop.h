@@ -55,7 +55,10 @@ class Shop {
         void getItemStats(){
             storage->getItemStats();
         }  
-
+        string randomizeShop() {
+            storage->randomizeInventory();
+            return "randomized";
+        }
 
 };
 #endif

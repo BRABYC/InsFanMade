@@ -148,6 +148,8 @@ public:
     }
 
 
+
+
     //display the grid
     void display() {
     for (int i = 0; i < rows; i++) {
@@ -316,6 +318,9 @@ public:
 
         return "Inventory sorted in descending order of price";
     }
+
+
+
 };
 
 #endif // STORAGE_H
