@@ -35,7 +35,7 @@ public:
             cout<<"ITEM STATS"<<endl;
             player.getItemStats();
             cout<<"ACTIONS"<<endl;
-            cout<<"+====================+"<<endl<< "| > move (WASD)      |"<<endl << "| > use item (E)     |"<<endl << "| > enter store (T)  |"<<endl<<"| > curse item (C)   |"<<endl<< "| > drop item (R)    |"<<endl<< "| > sell item (G)    |"<<endl<<"+====================+"<<endl;
+            cout<<"+====================+"<<endl<< "| > move (WASD)      |"<<endl << "| > use item (E)     |"<<endl << "| > enter store (T)  |"<<endl<<"| > curse item (C)   |"<<endl<< "| > drop item (X)    |"<<endl<< "| > sell item (G)    |" << endl << "| > randomise (R)    |" <<endl<<"+====================+"<<endl;
         }
         cout<<"PLAYER STATS"<<endl;
         player.getStats();

@@ -166,8 +166,8 @@ public:
         cout << "+=====================================+" << endl;
         cout << "| HP:            " << left << setw(20) << HP << " |" << endl;
         cout << "| Gold:          " << left << setw(20) << gold << " |" << endl;
-        cout << "| Damage:        " << left << setw(20) << damage << " |" << endl;
-        cout << "| Defence:       " << left << setw(20) << defence << " |" << endl;
+        cout << "| Damage:        " << left << setw(20) << damage + (mainHand != nullptr ? mainHand->attack : 0) << " |" << endl;
+        cout << "| Defence:       " << left << setw(20) << defence + (armor != nullptr ? armor->defence : 0) << " |" << endl;
         cout << "| equipped weapon: " << left << setw(18) << (mainHand != nullptr ? mainHand->name : "none") << " |" << endl;
         cout << "| equipped armor:  " << left << setw(18) << (armor != nullptr ? armor->name : "none") << " |" << endl;
         cout << "+=====================================+" << endl;

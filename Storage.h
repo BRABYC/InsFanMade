@@ -319,8 +319,6 @@ public:
         return "Inventory sorted in descending order of price";
     }
 
-
-
 };
 
 #endif // STORAGE_H
