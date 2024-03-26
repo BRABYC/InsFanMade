@@ -64,7 +64,7 @@ public:
                 case 'c':
                     console.push_back(player.curseItem());
                     break;
-                case 'r':
+                case 'x':
                     console.push_back(player.dropItem());
                     break;
                 
@@ -101,6 +101,9 @@ public:
                     break;
                 case 'l':
                     console.push_back(player.loadInventory());
+                    break;
+                case 'r':
+                    console.push_back(player.randomizeInventory());
                     break;
         }
     }

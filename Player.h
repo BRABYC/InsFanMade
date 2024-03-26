@@ -24,7 +24,7 @@ public:
         HP = 100;
         mainHand = nullptr;
         armor = nullptr;
-        eq = new Storage(5, 5);
+        eq = new Storage(10, 5);
         gold = 100;
         weaponCurses = {"burning", "ice", "holy light", "fumo blessing", "bloodlust","grotesque" };
         armorCurses = {"reinforced", "bloodstained","gaunt", "light", "flimsy" };
@@ -187,6 +187,10 @@ public:
         return "loaded";
     }
 
+	string randomizeInventory() {
+		eq->randomizeInventory();
+		return "randomized";
+    }
  
 };
 #endif

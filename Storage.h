@@ -9,7 +9,14 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_GRAY    "\x1b[90m"
+#define ANSI_COLOR_PURPLE  "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 using namespace std;
 
 class Storage {
@@ -25,14 +32,9 @@ public:
             grid[i] = new Item*[cols]; //every array now has a array
         }
         //fill the grid with items
-        int count = 0;
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                int whatToAdd = rand()% 3;
-                if(whatToAdd == 0) grid[i][j] = new Weapon();
-                else if(whatToAdd == 1) grid[i][j] = new Armor();
-                else grid[i][j] = nullptr;
-                count++;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid[i][j] = nullptr;
             }
         }
         
@@ -57,11 +59,11 @@ public:
                     if (grid[i][j] != nullptr) {
                         if (dynamic_cast<Weapon*>(grid[i][j])) {
                             Weapon* weapon = dynamic_cast<Weapon*>(grid[i][j]);
-                            outfile << "weapon," << weapon->name << "," << weapon->price << "," << weapon->attack << "," << weapon->curse << endl;
+                            outfile << "weapon," << weapon->name << "," << weapon->price << "," << weapon->attack << "," << weapon->curse << "," << weapon->rarity << endl;
                         }
                         else if (dynamic_cast<Armor*>(grid[i][j])) {
                             Armor* armor = dynamic_cast<Armor*>(grid[i][j]);
-                            outfile << "armor," << armor->name << "," << armor->price << "," << armor->defence << "," << armor->curse << endl;
+                            outfile << "armor," << armor->name << "," << armor->price << "," << armor->defence << "," << armor->curse << "," << armor->rarity << endl;
                         }
                     }
                     else {
@@ -94,26 +96,28 @@ public:
                     if (type == "weapon") {
                         string name;
                         int price, attack;
-                        string curse;
+                        string curse, rarity;
                         getline(ss, name, ',');
                         ss >> price;
                         ss.ignore(); // Ignore the comma
                         ss >> attack;
                         ss.ignore(); // Ignore the comma
-                        getline(ss, curse);
-                        grid[row][col] = new Weapon(name, attack, price, curse);
+                        getline(ss, curse, ',');
+                        getline(ss, rarity);
+                        grid[row][col] = new Weapon(name, attack, price, curse, rarity);
                     }
                     else if (type == "armor") {
                         string name;
                         int price, defense;
-                        string curse;
+                        string curse, rarity;
                         getline(ss, name, ',');
                         ss >> price;
                         ss.ignore(); // Ignore the comma
                         ss >> defense;
                         ss.ignore(); // Ignore the comma
-                        getline(ss, curse);
-                        grid[row][col] = new Armor(name, defense, price, curse);
+                        getline(ss, curse, ',');
+                        getline(ss, rarity);
+                        grid[row][col] = new Armor(name, defense, price, curse, rarity);
                     }
                 }
                 col++;
@@ -132,6 +136,16 @@ public:
         }
         infile.close();
     }
+    void randomizeInventory() {
+        for (int i = 0; i < this->rows; i++) {
+            for (int j = 0; j < this->cols; j++) {
+                int whatToAdd = rand() % 3;
+                if (whatToAdd == 0) grid[i][j] = new Weapon();
+                else if (whatToAdd == 1) grid[i][j] = new Armor();
+                else grid[i][j] = nullptr;
+            }
+        }
+    }
 
 
     //display the grid
@@ -143,7 +157,33 @@ public:
                 cout << "\033[31m"; // Set color to red
                 cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
                 cout << "\033[0m"; // Reset color
-            } else {
+            }
+            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "common") {
+                cout << ANSI_COLOR_GRAY; // Set color to blue
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET; // Reset color
+            }
+            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "uncommon") {
+                cout << ANSI_COLOR_CYAN; // Set color to blue
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET; // Reset color
+            }
+            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "rare") {
+                cout << ANSI_COLOR_BLUE; // Set color to blue
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET; // Reset color
+            }
+            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "epic") {
+                cout << ANSI_COLOR_PURPLE; // Set color to blue
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET; // Reset color
+            }
+            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "legendary") {
+                cout << ANSI_COLOR_YELLOW; // Set color to blue
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET; // Reset color
+            }
+            else {
                 cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
             }
         }
@@ -170,7 +210,7 @@ public:
             break;
 
         case 's':
-            if(Xcoord != this->cols-1){
+            if(Xcoord != this->rows-1){
                 Xcoord++;
             }
             break;
@@ -182,7 +222,7 @@ public:
             break;
         
         case 'd':
-            if(Ycoord != this->rows-1){
+            if(Ycoord != this->cols-1){
                 Ycoord++;
 
             }
@@ -210,6 +250,7 @@ public:
             }
 
             cout << "| Price: " << left << setw(16) << current_item->price << "|" << endl;
+            cout << "| rarity: " << left << setw(16) << current_item->rarity << "|" << endl;
 
             cout << "+========================+" << endl;
         }
