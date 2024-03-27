@@ -65,7 +65,7 @@ public:
                 console.push_back(player.useItem());
                 break;
             case 'c':
-                if (shop_mode) console.push_back("Do you really wanted to curse my item???");
+                if (shop_mode) console.push_back("Did you really tried to curse my item???");
                 else console.push_back(player.curseItem());
                 break;
             case 'x':
