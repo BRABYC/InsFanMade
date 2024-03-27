@@ -232,24 +232,24 @@ public:
     void getItemStats(){
 		if (grid[Xcoord][Ycoord] != nullptr) {
             Item* current_item = grid[Xcoord][Ycoord];
-            cout << "+========================+" << endl;
+            cout << "+================================+" << endl;
 
             // Adjusted setw to fit within 23 characters, including borders and spaces
-            cout << "| Name: " << left << setw(17) << current_item->name << "|" << endl;
-            cout << "| Curse: " << left << setw(16) << current_item->curse << "|" << endl;
+            cout << "| Name: " << left << setw(25) << current_item->name << "|" << endl;
+            cout << "| Curse: " << left << setw(24) << current_item->curse << "|" << endl;
             if (dynamic_cast<Weapon*>(current_item)) {
                 Weapon* weapon = dynamic_cast<Weapon*>(current_item);
-                cout << "| Attack: " << left << setw(15) << weapon->attack << "|" << endl;
+                cout << "| Attack: " << left << setw(23) << weapon->attack << "|" << endl;
             }
             else if (dynamic_cast<Armor*>(current_item)) {
                 Armor* armor = dynamic_cast<Armor*>(current_item);
-                cout << "| Defence: " << left << setw(14) << armor->defence << "|" << endl;
+                cout << "| Defence: " << left << setw(22) << armor->defence << "|" << endl;
             }
 
-            cout << "| Price: " << left << setw(16) << current_item->price << "|" << endl;
-            cout << "| rarity: " << left << setw(16) << current_item->rarity << "|" << endl;
+            cout << "| Price: " << left << setw(24) << current_item->price << "|" << endl;
+            cout << "| rarity: " << left << setw(23) << current_item->rarity << "|" << endl;
 
-            cout << "+========================+" << endl;
+            cout << "+================================+" << endl;
         }
         else {
             cout << "+====================+" << endl;
