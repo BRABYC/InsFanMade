@@ -17,6 +17,7 @@
 #define ANSI_COLOR_PURPLE  "\x1b[35m"
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_WHITE   "\x1b[37m"
 using namespace std;
 
 class Storage {
@@ -152,42 +153,36 @@ public:
 
     //display the grid
     void display() {
+        string color;
     for (int i = 0; i < rows; i++) {
         cout << "| ";
         for (int j = 0; j < cols; j++) {
             if (i == Xcoord && j == Ycoord) {
-                cout << "\033[31m"; // Set color to red
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << "\033[0m"; // Reset color
+                color = ANSI_COLOR_RED; // Set color to red
             }
             else if (grid[i][j] != nullptr && grid[i][j]->rarity == "common") {
-                cout << ANSI_COLOR_GRAY; // Set color to blue
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << ANSI_COLOR_RESET; // Reset color
+                color = ANSI_COLOR_GRAY; // Set color to gray
             }
             else if (grid[i][j] != nullptr && grid[i][j]->rarity == "uncommon") {
-                cout << ANSI_COLOR_CYAN; // Set color to blue
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << ANSI_COLOR_RESET; // Reset color
+                 color = ANSI_COLOR_CYAN; // Set color to light-blue
             }
             else if (grid[i][j] != nullptr && grid[i][j]->rarity == "rare") {
-                cout << ANSI_COLOR_BLUE; // Set color to blue
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << ANSI_COLOR_RESET; // Reset color
+                color = ANSI_COLOR_BLUE; // Set color to blue
             }
             else if (grid[i][j] != nullptr && grid[i][j]->rarity == "epic") {
-                cout << ANSI_COLOR_PURPLE; // Set color to blue
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << ANSI_COLOR_RESET; // Reset color
+                color = ANSI_COLOR_PURPLE; // Set color to purple
             }
             else if (grid[i][j] != nullptr && grid[i][j]->rarity == "legendary") {
-                cout << ANSI_COLOR_YELLOW; // Set color to blue
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-                cout << ANSI_COLOR_RESET; // Reset color
+                color = ANSI_COLOR_YELLOW; // Set color to yellow
             }
             else {
-                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+				color = ANSI_COLOR_WHITE; // Set color to white
+                
             }
+            cout << color;
+            cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+            cout << ANSI_COLOR_RESET;
+
         }
         cout << " |" << endl;
     }
