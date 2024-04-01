@@ -291,23 +291,13 @@ public:
         if (item2 == nullptr) return true;
 
         // Retrieve the rarity values for each item
-        int rarity1 = GetRarityStrange(item1);
-        int rarity2 = GetRarityStrange(item2);
+        int rarity1 = GetRarityStrange(item1->rarity);
+        int rarity2 = GetRarityStrange(item1->rarity);
 
         // Compare the rarity values
         return rarity1 < rarity2;
     }
 
-    int GetRarityStrange(Item* item) {
-        string itemRarity = item->rarity;
-        if (itemRarity == "common") return 0;
-        else if (itemRarity == "uncommon") return 1;
-        else if (itemRarity == "rare") return 2;
-        else if (itemRarity == "epic") return 3;
-        else if (itemRarity == "legendary") return 4;
-        else if (itemRarity == "Hakurei") return 5;
-        else return -1;
-    };
 
     string sortByRarity() {
         vector<Item*> tempItems;

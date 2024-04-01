@@ -35,7 +35,15 @@ int RandomiseRarity(int uncommonNum, int rareNum, int epicNum, int legendaryNum,
     }
 };
 
-
+int GetRarityStrange(string itemRarity) {
+    if (itemRarity == "common") return 1;
+    else if (itemRarity == "uncommon") return 2;
+    else if (itemRarity == "rare") return 3;
+    else if (itemRarity == "epic") return 4;
+    else if (itemRarity == "legendary") return 5;
+    else if (itemRarity == "Hakurei") return 6;
+    else return -1;
+};
 
 class Item {
 //attributes of the class
