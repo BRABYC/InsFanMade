@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <map> 
 #include <cstdlib>
 #include "Item.h"
 #include "Player.h"

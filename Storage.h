@@ -1,14 +1,16 @@
-#ifndef STORAGE_H //define STORAGE_H for other files to use class Equipment
+#ifndef STORAGE_H
 #define STORAGE_H
 
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "Item.h"// Add the necessary include path for the "Item.h" header file
+#include "Item.h"
 #include <tuple>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
+
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
@@ -18,6 +20,7 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 #define ANSI_COLOR_WHITE   "\x1b[37m"
+
 using namespace std;
 
 class Storage {
@@ -26,32 +29,28 @@ class Storage {
 public:
     int Xcoord = 0;
     int Ycoord = 0;
-    Item*** grid; //defina a 2D array of pointers to Item objects
+    Item*** grid;
+
     Storage(int rows = 5, int cols = 5) : rows{rows}, cols{cols} {
-        grid = new Item**[rows]; //every array now has a array
+        grid = new Item**[rows];
         for(int i = 0; i < rows; i++) {
-            grid[i] = new Item*[cols]; //every array now has a array
+            grid[i] = new Item*[cols];
         }
-        //fill the grid with items
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 grid[i][j] = nullptr;
             }
         }
-        
     }
 
-
-
     int getRows() {
-		return rows;
+        return rows;
     }
 
     int getCols() {
-		return cols;
+        return cols;
     }
 
-    // Function to save inventory to file
     void saveInventoryToFile(const string& filename) {
         ofstream outfile(filename);
         if (outfile.is_open()) {
@@ -80,7 +79,6 @@ public:
         outfile.close();
     }
 
-    // Function to read from file and fill storage grid with items
     void readInventoryFromFile(const string& filename) {
         ifstream infile(filename);
         if (infile.is_open()) {
@@ -126,7 +124,7 @@ public:
                     col = 0;
                     row++;
                     if (row >= rows) {
-                        break; // Prevent reading more lines than the grid size
+                        break;
                     }
                 }
             }
@@ -137,6 +135,7 @@ public:
         }
         infile.close();
     }
+
     void randomizeInventory() {
         for (int i = 0; i < this->rows; i++) {
             for (int j = 0; j < this->cols; j++) {
@@ -148,55 +147,39 @@ public:
         }
     }
 
-
-
-
-    //display the grid
     void display() {
         string color;
-    for (int i = 0; i < rows; i++) {
-        cout << "| ";
-        for (int j = 0; j < cols; j++) {
-            if (i == Xcoord && j == Ycoord) {
-                color = ANSI_COLOR_RED; // Set color to red
+        for (int i = 0; i < rows; i++) {
+            cout << "| ";
+            for (int j = 0; j < cols; j++) {
+                if (i == Xcoord && j == Ycoord) {
+                    color = ANSI_COLOR_RED;
+                }
+                else if (grid[i][j] != nullptr && grid[i][j]->rarity != "Hakurei") {
+                    color = getRarityColor(grid[i][j]->rarity);
+                }
+                else {
+                    color = ANSI_COLOR_WHITE;
+                }
+                cout << color;
+                cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
+                cout << ANSI_COLOR_RESET;
             }
-            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "common") {
-                color = ANSI_COLOR_GRAY; // Set color to gray
-            }
-            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "uncommon") {
-                 color = ANSI_COLOR_CYAN; // Set color to light-blue
-            }
-            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "rare") {
-                color = ANSI_COLOR_BLUE; // Set color to blue
-            }
-            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "epic") {
-                color = ANSI_COLOR_PURPLE; // Set color to purple
-            }
-            else if (grid[i][j] != nullptr && grid[i][j]->rarity == "legendary") {
-                color = ANSI_COLOR_YELLOW; // Set color to yellow
-            }
-            else {
-				color = ANSI_COLOR_WHITE; // Set color to white
-                
-            }
-            cout << color;
-            cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
-            cout << ANSI_COLOR_RESET;
-
+            cout << " |" << endl;
         }
-        cout << " |" << endl;
     }
-}
-        tuple<int, int> DoIHaveSomeFreeSpace() { //for returning multiple values
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
-                    if (grid[i][j] == nullptr) {
-                        return make_tuple(i, j);
-                    }
+
+    tuple<int, int> DoIHaveSomeFreeSpace() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == nullptr) {
+                    return make_tuple(i, j);
                 }
             }
-            return make_tuple(-1, -1);
         }
+        return make_tuple(-1, -1);
+    }
+
     void moveInEquipment(char choice){
         cout<<this->Xcoord<<endl;
         switch (choice){
@@ -221,7 +204,6 @@ public:
         case 'd':
             if(Ycoord != this->cols-1){
                 Ycoord++;
-
             }
             break;
                     
@@ -229,12 +211,11 @@ public:
             break;
         }
     }
+
     void getItemStats(){
-		if (grid[Xcoord][Ycoord] != nullptr) {
+        if (grid[Xcoord][Ycoord] != nullptr) {
             Item* current_item = grid[Xcoord][Ycoord];
             cout << "+================================+" << endl;
-
-            // Adjusted setw to fit within 23 characters, including borders and spaces
             cout << "| Name: " << left << setw(25) << current_item->name << "|" << endl;
             cout << "| Curse: " << left << setw(24) << current_item->curse << "|" << endl;
             if (dynamic_cast<Weapon*>(current_item)) {
@@ -245,10 +226,8 @@ public:
                 Armor* armor = dynamic_cast<Armor*>(current_item);
                 cout << "| Defence: " << left << setw(22) << armor->defence << "|" << endl;
             }
-
             cout << "| Price: " << left << setw(24) << current_item->price << "|" << endl;
             cout << "| rarity: " << left << setw(23) << current_item->rarity << "|" << endl;
-
             cout << "+================================+" << endl;
         }
         else {
@@ -258,6 +237,7 @@ public:
         }
 
     }
+
     string dropItem(){
         if(grid[Xcoord][Ycoord] != nullptr){
             grid[Xcoord][Ycoord] = nullptr;
@@ -269,18 +249,13 @@ public:
     }
 
     bool compareByPrice(const Item* item1, const Item* item2) {
-        // If either item is nullptr, place it after the other
         if (item1 == nullptr) return false;
         if (item2 == nullptr) return true;
-
         return item1->price < item2->price;
     }
 
     string sortInventory() {
-        // Create a temporary array to hold all non-null items
         vector<Item*> tempItems;
-
-        // Extract all non-null items from the grid
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (grid[i][j] != nullptr) {
@@ -288,15 +263,69 @@ public:
                 }
             }
         }
+        for (int i = 0; i < tempItems.size(); i++) {
+            for (int j = i + 1; j < tempItems.size(); j++) {
+                if (compareByPrice(tempItems[i], tempItems[j])) {
+                    swap(tempItems[i], tempItems[j]);
+                }
+            }
+        }
+        int index = 0;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (index < tempItems.size()) {
+                    grid[i][j] = tempItems[index++];
+                }
+                else {
+                    grid[i][j] = nullptr;
+                }
+            }
+        }
+        return "Inventory sorted in descending order of price";
+    }
 
-        // Sort the items using the static compare function
-		for (int i = 0; i < tempItems.size(); i++) {
-			for (int j = i + 1; j < tempItems.size(); j++) {
-				if (compareByPrice(tempItems[i], tempItems[j])) {
-					swap(tempItems[i], tempItems[j]);
-				}
-			}
-		}
+
+
+    bool compareByRarity(Item* item1, Item* item2) {
+        if (item1 == nullptr) return false;
+        if (item2 == nullptr) return true;
+
+        // Retrieve the rarity values for each item
+        int rarity1 = GetRarityStrange(item1);
+        int rarity2 = GetRarityStrange(item2);
+
+        // Compare the rarity values
+        return rarity1 < rarity2;
+    }
+
+    int GetRarityStrange(Item* item) {
+        string itemRarity = item->rarity;
+        if (itemRarity == "common") return 0;
+        else if (itemRarity == "uncommon") return 1;
+        else if (itemRarity == "rare") return 2;
+        else if (itemRarity == "epic") return 3;
+        else if (itemRarity == "legendary") return 4;
+        else if (itemRarity == "Hakurei") return 5;
+        else return -1;
+    };
+
+    string sortByRarity() {
+        vector<Item*> tempItems;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (grid[i][j] != nullptr) {
+                    tempItems.push_back(grid[i][j]);
+                }
+            }
+        }
+        // Sort the items using the custom comparison function
+        for (int i = 0; i < tempItems.size(); i++) {
+            for (int j = i + 1; j < tempItems.size(); j++) {
+                if (compareByRarity(tempItems[i], tempItems[j])) {
+                    swap(tempItems[i], tempItems[j]);
+                }
+            }
+        }
 
         // Re-populate the grid with the sorted items
         int index = 0;
@@ -311,9 +340,31 @@ public:
             }
         }
 
-        return "Inventory sorted in descending order of price";
+        return "Inventory sorted in ascending order of rarity";
     }
 
+
+    // Function to determine color based on rarity
+    string getRarityColor(const string& rarity) {
+        if (rarity == "common") {
+            return ANSI_COLOR_GRAY;
+        }
+        else if (rarity == "uncommon") {
+            return ANSI_COLOR_CYAN;
+        }
+        else if (rarity == "rare") {
+            return ANSI_COLOR_BLUE;
+        }
+        else if (rarity == "epic") {
+            return ANSI_COLOR_PURPLE;
+        }
+        else if (rarity == "legendary") {
+            return ANSI_COLOR_YELLOW;
+        }
+        else {
+            return ANSI_COLOR_WHITE;
+        }
+    }
 };
 
 #endif // STORAGE_H

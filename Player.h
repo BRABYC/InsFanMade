@@ -7,6 +7,7 @@
 #include "Item.h"
 #include "Storage.h" 
 #include <tuple>
+#include <map> 
 using namespace std;
 class Player {
 private:
@@ -176,6 +177,11 @@ public:
     string sortInvertory() {
 		eq->sortInventory();
         return "Inventory sorted in descending order of price";
+    }
+
+    string sortByRarity() {
+		eq->sortByRarity();
+		return "Inventory sorted in descending order of rarity";
     }
 
     string saveInventory() {

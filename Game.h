@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map> 
 #include <conio.h>
 
 class Game {
@@ -93,6 +94,9 @@ public:
                 break;
             case 'f':
                 console.push_back(player.sortInvertory());
+                break;
+            case 'v':
+                console.push_back(player.sortByRarity());
                 break;
             case 'h':
                 console.push_back(player.unEquipArmor());

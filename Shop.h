@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Item.h"
 #include <tuple>
+#include <map> 
 #include <vector>
 
 using namespace std;
