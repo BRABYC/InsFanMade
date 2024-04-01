@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// In arguments write chances for the rarity drop like RandomiseRarity(20, 40, 80, 150, 1000)
 string RandomiseRarity(int uncommonNum, int rareNum, int epicNum, int legendaryNum, int japierdoleNum) {
     int uncommonRand = rand() % uncommonNum;
     int rareRand = rand() % rareNum;
@@ -49,6 +50,7 @@ public:
     vector<string> names3;
     
     Item(string name = "none", int price = 0, string curse = "none", string rarity = "none") : name{name}, price{price}, curse{curse}, rarity{rarity} {
+		// here we have rarity name and strange, the higher would be number the higher woulld be difference between prices and atributes.
         rarities = { {"common", 1}, {"uncommon", 2}, {"rare", 4}, {"epic", 7}, {"legendary", 15}, {"Hakurei", 35} };
     }
     virtual ~Item() {} // Virtual destructor, needed for polymorphism, so that classes that derive from item can acces it and be considerd similar to Item
