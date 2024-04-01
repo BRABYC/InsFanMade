@@ -74,7 +74,10 @@ class Weapon : public Item {
 public:
     int attack;
     Weapon(string name = "none", int attack = 10, int price = -1, string curse = "none", string rarity = "none") : Item(name, price, curse, rarity) {
-        this->attack = rand() % 10 + 30;
+        if (rarity == "none") {
+            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
+        }
+        this->attack = ((rand() % 10) + 30) * GetRarityStrange(this->rarity);
         names1 = { "sword", "axe", "mace", "spear", "bow", "crossbow", "dagger", "staff", "wand", "club" };
         names2 = { "of the", "of"};
         names3 = { "flame", "ice", "lightning", "earth", "water", "wind", "darkness", "light", "holy", "unholy" };
@@ -82,11 +85,9 @@ public:
             this->name = names1[rand() % names1.size()] + " " + names2[rand() % names2.size()] + " " + names3[rand() % names3.size()];
         }
         if (price == -1) {
-            this->price = rand() % 100;
+            this->price = ((rand() % 10) + GetRarityStrange(this->rarity) * 10) * GetRarityStrange(this->rarity);
         }
-        if (rarity == "none") {
-            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
-        }
+
    }
 
 };
@@ -94,17 +95,17 @@ class Armor : public Item {
 public:
     int defence;
     Armor(string name = "none", int defense = 10, int price = -1, string curse = "none", string rarity = "none") : Item(name, price, curse, rarity) {
-        this->defence = rand() % 10 + 30;
+        if (rarity == "none") {
+            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
+        }
+        this->defence = ((rand() % 10) + 30) * GetRarityStrange(this->rarity);
         names1 = { "pain", "crimson", "shadow", "gaunt", "iron", "high priest's", "darkness", "femboy", "holy", "unholy" };
         names3 = { "chestplate", "robe", "helmet", "arm guards", "shoes", "thigh-highs", "bascinet", "cuirass", "robes", "outfit" };
         if (name == "none") {
             this->name = names1[rand() % names1.size()] + " " + names3[rand() % names3.size()];
         }
         if (price == -1) {
-            this->price = rand() % 100;
-        }
-        if (rarity == "none") {
-            this->rarity = rarities[RandomiseRarity(20, 40, 80, 150, 1000)];
+            this->price = ((rand() % 10) + GetRarityStrange(this->rarity) * 10) * GetRarityStrange(this->rarity);
         }
     }
 };
