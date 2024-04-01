@@ -49,7 +49,7 @@ public:
     vector<string> names3;
     
     Item(string name = "none", int price = 0, string curse = "none", string rarity = "none") : name{name}, price{price}, curse{curse}, rarity{rarity} {
-        rarities = { {"common", 1}, {"uncommon", 2}, {"rare", 3}, {"epic", 4}, {"legendary", 5}, {"Hakurei", 9} };
+        rarities = { {"common", 1}, {"uncommon", 2}, {"rare", 4}, {"epic", 7}, {"legendary", 15}, {"Hakurei", 35} };
     }
     virtual ~Item() {} // Virtual destructor, needed for polymorphism, so that classes that derive from item can acces it and be considerd similar to Item
 
