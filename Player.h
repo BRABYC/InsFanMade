@@ -209,10 +209,8 @@ public:
             if (doesThePlayerHaveTheGold(0)) {
                 int whatToAdd = rand() % 1;
                 vector<string> rarities = { "common", "uncommon", "rare", "epic", "legendary", "Hakurei" };
-                int randNum = RandomiseRarity(1, 1, 10, 20, 40);
-                string rarity;
-                if (randNum == 0) rarity = rarities[2];
-                else rarity = rarities[randNum];
+                string rarity = RandomiseRarity(1, 1, 10, 20, 40);;
+                if (rarity == "common") rarity = rarities[2];
                 if (whatToAdd == 0) eq->grid[x][y] = new Weapon("none", 10, -1, "none", rarity);
                 else if (whatToAdd == 1) eq->grid[x][y] = new Armor("none", 10, -1, "none", rarity);
                 return "Case opened";

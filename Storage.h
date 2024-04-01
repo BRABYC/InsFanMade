@@ -291,8 +291,8 @@ public:
         if (item2 == nullptr) return true;
 
         // Retrieve the rarity values for each item
-        int rarity1 = GetRarityStrange(item1->rarity);
-        int rarity2 = GetRarityStrange(item1->rarity);
+        int rarity1 = item1->rarities[item1->rarity];
+        int rarity2 = item2->rarities[item2->rarity];
 
         // Compare the rarity values
         return rarity1 < rarity2;
