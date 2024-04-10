@@ -164,14 +164,14 @@ public:
         }
     }
     void getStats() {
-        cout << "+=====================================+" << endl;
-        cout << "| HP:            " << left << setw(20) << HP << " |" << endl;
-        cout << "| Gold:          " << left << setw(20) << gold << " |" << endl;
-        cout << "| Damage:        " << left << setw(20) << damage + (mainHand != nullptr ? mainHand->attack : 0) << " |" << endl;
-        cout << "| Defence:       " << left << setw(20) << defence + (armor != nullptr ? armor->defence : 0) << " |" << endl;
-        cout << "| equipped weapon: " << left << setw(18) << (mainHand != nullptr ? mainHand->name : "none") << " |" << endl;
-        cout << "| equipped armor:  " << left << setw(18) << (armor != nullptr ? armor->name : "none") << " |" << endl;
-        cout << "+=====================================+" << endl;
+        cout << "+==========================================+" << endl;
+        cout << "| HP:            " << left << setw(25) << HP << " |" << endl;
+        cout << "| Gold:          " << left << setw(25) << gold << " |" << endl;
+        cout << "| Damage:        " << left << setw(25) << damage + (mainHand != nullptr ? mainHand->attack : 0) << " |" << endl;
+        cout << "| Defence:       " << left << setw(25) << defence + (armor != nullptr ? armor->defence : 0) << " |" << endl;
+        cout << "| equipped weapon: " << left << setw(23) << (mainHand != nullptr ? mainHand->name : "none") << " |" << endl;
+        cout << "| equipped armor:  " << left << setw(23) << (armor != nullptr ? armor->name : "none") << " |" << endl;
+        cout << "+==========================================+" << endl;
     }
 
     string sortInvertory() {
@@ -206,7 +206,7 @@ public:
             return "No space in inventory";
         }
         else {
-            if (doesThePlayerHaveTheGold(0)) {
+            if (doesThePlayerHaveTheGold(500)) {
                 int whatToAdd = rand() % 1;
                 vector<string> rarities = { "common", "uncommon", "rare", "epic", "legendary", "Hakurei" };
                 string rarity = RandomiseRarity(1, 1, 10, 20, 40);;

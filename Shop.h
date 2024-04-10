@@ -18,6 +18,8 @@ class Shop {
     public:
         Shop() {
             storage = new Storage();
+			storage->randomizeInventory();
+            storage->sortInventory();
         }
 
         void showUI() {

@@ -22,6 +22,8 @@ const std::string os_name = "Unknown";
 
 int main()
 {
+	srand(time(NULL));
+
     Player P;
     Game game(P);
     //P.showEq();

@@ -14,32 +14,39 @@ class Game {
 private:
     Player player;
     bool shop_mode;
+    bool show_help;
     Shop* shop;
     vector<string> console;
 
 public:
     Game(const Player& player) : player(player) {
         shop_mode = false;
+		show_help = false;
         shop = new Shop();
         console.resize(5);
     }
+
+    void HelpMEPLS() {
+        if (show_help) show_help = false; 
+		else show_help = true;
+    }
+
     void showUI(){
-        //system("CLS"); <------------- nie działa :(5
-        if(shop_mode){
-            cout<<"|INVENTORY|"<< "\033[31m"<<" |STORE|"<< "\033[0m"<<endl;  
+        if (shop_mode) {
+            cout << "|INVENTORY|" << "\033[31m" << " |STORE|" << "\033[0m" << endl;
             shop->showUI();
-            cout<<"ITEM STATS"<<endl;
+            cout << "ITEM STATS" << endl;
             shop->getItemStats();
-            cout<<"ACTIONS"<< endl <<"+====================+"<<endl<< "| > buy item (B)     |"<<endl << "| > exit store (T)   |"<<endl<<"+====================+"<<endl;
+            if(show_help) cout << "ACTIONS" << endl << "+====================+" << endl << "| > buy item (B)     |" << endl << "| > exit store (T)   |" << endl << "+====================+" << endl;
         }
-        else{
-            cout<<"\033[31m"<<"|INVENTORY|"<<"\033[0m"<< " |STORE|"<<endl;
+        else {
+            cout << "\033[31m" << "|INVENTORY|" << "\033[0m" << " |STORE|" << endl;
             player.showEq();
-            cout<<"ITEM STATS"<<endl;
+            cout << "ITEM STATS" << endl;
             player.getItemStats();
-            cout<<"ACTIONS"<<endl;
-            cout<<"+====================+"<<endl<< "| > move (WASD)      |"<<endl << "| > use item (E)     |"<<endl << "| > enter store (T)  |"<<endl<<"| > curse item (C)   |"<<endl<< "| > drop item (X)    |"<<endl<< "| > sell item (G)    |" << endl << "| > randomise (R)    |" << endl << "| > Save (K)         |" << endl << "| > load (L)         |" << endl << "| > unEquipWeapon (N)|" << endl << "| > unEquipArmor (H) |" << endl << "| > SortInventory (F)|" <<endl<<"+====================+"<<endl;
+            if (show_help) cout << "ACTIONS" << endl << "+====================+" << endl << "| > HELP (H)         |" << endl << "| > move (WASD)      |" << endl << "| > use item (E)     |" << endl << "| > enter store (T)  |" << endl << "| > curse item (C)   |" << endl << "| > drop item (X)    |" << endl << "| > sell item (G)    |" << endl << "| > randomise (R)    |" << endl << "| > Save (K)         |" << endl << "| > load (L)         |" << endl << "| > unEquipWeapon (N)|" << endl << "| > unEquipArmor (M) |" << endl << "| > SortInventory (F)|" << endl << "| > OpenCase 500g (O)|" << endl << "+====================+" << endl;
         }
+    
         cout<<"PLAYER STATS"<<endl;
         player.getStats();
         cout<<"CONSOLE"<<endl;
@@ -93,12 +100,14 @@ public:
                 console.push_back(player.sellItem());
                 break;
             case 'f':
-                console.push_back(player.sortInvertory());
+                if (shop_mode) console.push_back("Did you really tried to sort MY shop???");
+                else console.push_back(player.sortInvertory());
                 break;
             case 'v':
-                console.push_back(player.sortByRarity());
+                if (shop_mode) console.push_back("Did you really tried to sort MY shop???");
+                else console.push_back(player.sortByRarity());
                 break;
-            case 'h':
+            case 'm':
                 console.push_back(player.unEquipArmor());
                 break;
             case 'n':
@@ -116,6 +125,9 @@ public:
                 break;
             case 'o':
                 console.push_back(player.OpenCase());
+                break;
+            case 'h':
+                HelpMEPLS();
                 break;
             }
     }
