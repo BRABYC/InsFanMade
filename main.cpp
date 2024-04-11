@@ -7,6 +7,9 @@
 #include "Player.h"
 #include "Storage.h"
 #include "Game.h"
+#include "Windows.h"
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -23,10 +26,14 @@ const std::string os_name = "Unknown";
 int main()
 {
 	srand(time(NULL));
-
+    HWND hwnd = GetConsoleWindow();
+    ShowWindow(hwnd, SW_MAXIMIZE);
     Player P;
     Game game(P);
     //P.showEq();
+    game.StartScreen();
+    this_thread::sleep_for(chrono::seconds(3));
+
     while (true){
 		if (os_name == "Windows") system("cls");
         else system("clear"); 
