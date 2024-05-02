@@ -149,11 +149,13 @@ public:
 
     void display() {
         string color;
+        cout << "+========================================================================================================================================================+   +================================+" << endl;
         for (int i = 0; i < rows; i++) {
             cout << "| ";
             for (int j = 0; j < cols; j++) {
                 if (i == Xcoord && j == Ycoord) {
                     color = ANSI_COLOR_RED;
+                    
                 }
                 else if (grid[i][j] != nullptr && grid[i][j]->rarity != "Hakurei") {
                     color = getRarityColor(grid[i][j]->rarity);
@@ -165,8 +167,36 @@ public:
                 cout << left << setw(30) << (grid[i][j] != nullptr ? grid[i][j]->name : "[ ] ");
                 cout << ANSI_COLOR_RESET;
             }
-            cout << " |" << endl;
+            cout << " |";
+            if (grid[Xcoord][Ycoord] != nullptr) {
+                Item* current_item = grid[Xcoord][Ycoord];
+                if(i == 0) cout << "   | Name: " << left << setw(25) << current_item->name << "|" << endl;
+                else if(i == 1) cout << "   | Curse: " << left << setw(24) << current_item->curse << "|" << endl;
+                else if (i == 2) {
+                    if (dynamic_cast<Weapon*>(current_item)) {
+                        Weapon* weapon = dynamic_cast<Weapon*>(current_item);
+                        cout << "   | Attack: " << left << setw(23) << weapon->attack << "|" << endl;
+                    }
+                    else if (dynamic_cast<Armor*>(current_item)) {
+                        Armor* armor = dynamic_cast<Armor*>(current_item);
+                        cout << "   | Defence: " << left << setw(22) << armor->defence << "|" << endl;
+                    }
+                }
+                
+                else if(i == 3) cout << "   | Price: " << left << setw(24) << current_item->price << "|" << endl;
+                else if(i == 4) cout << "   | rarity: " << left << setw(23) << current_item->rarity << "|" << endl;
+                else if (i == 5) cout << "   +================================+" << endl;
+                else cout << endl;
+                
+            }
+            else {
+                if (i == 0) cout << "   | Nothing                        |" << endl;
+                else if (i == 1) cout << "   +================================+" << endl;
+                else cout << endl;
+
+            }
         }
+        cout << "+========================================================================================================================================================+" << endl;
     }
 
     tuple<int, int> DoIHaveSomeFreeSpace() {
