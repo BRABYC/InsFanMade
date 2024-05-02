@@ -231,10 +231,10 @@ public:
                 console.push_back(player.unEquipWeapon());
                 break;
             case 'k':
-                console.push_back(player.savePlayerToFile("Save.txt"));
+                console.push_back(player.saveInventory());
                 break;
             case 'l':
-                console.push_back(player.readPlayerFromFile("Save.txt"));
+                console.push_back(player.loadInventory());
                 break;
             case 'r':
                 if (shop_mode) console.push_back(shop->randomizeShop());
