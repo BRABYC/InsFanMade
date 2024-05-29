@@ -1,4 +1,5 @@
 # InsFanMade
 
+To start program -> start main.cpp
 
-HAKUREI SHRINE ON TOP !!!!!!!!!
+program writen by Pokutnii & Mankiewicz
