@@ -29,17 +29,18 @@ int main()
 	srand(time(NULL));
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_MAXIMIZE);
-	bool gameLoop;
-    bool basic_setup;
-
+	bool gameLoop = true;
+    bool basic_setup = true;
     Player P;
     Game game(P, gameLoop, basic_setup, os_name);
-    //cout << "please unequip your items before exit the game, i didn't setup player stats saving yet" << endl;
-    //this_thread::sleep_for(chrono::milliseconds(5000));
-    //game.StartScreen();
-    //this_thread::sleep_for(chrono::milliseconds(500));
-    //game.loadingAnimation(40);
-	
+
+    // loading screen --------------------------------
+    cout << "please unequip your items before exit the game, i didn't setup player stats saving yet" << endl;
+    this_thread::sleep_for(chrono::milliseconds(5000));
+    game.StartScreen();
+    this_thread::sleep_for(chrono::milliseconds(500));
+    game.loadingAnimation(40);
+    // -----------------------------------------------
 
     P.loadInventory();
 

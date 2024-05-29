@@ -92,7 +92,7 @@ public:
             this->rarity = RandomiseRarity(20, 40, 80, 150, 1000);
         }
         this->defence = ((rand() % 10) + 30) * rarities[this->rarity];
-        names1 = { "pain", "crimson", "shadow", "gaunt", "iron", "high priest's", "darkness", "femboy", "holy", "unholy" };
+        names1 = { "pain", "crimson", "shadow", "gaunt", "iron", "high priest's", "darkness", "angel", "holy", "unholy" };
         names3 = { "chestplate", "robe", "helmet", "arm guards", "shoes", "thigh-highs", "bascinet", "cuirass", "robes", "outfit" };
         if (name == "none") {
             this->name = names1[rand() % names1.size()] + " " + names3[rand() % names3.size()];

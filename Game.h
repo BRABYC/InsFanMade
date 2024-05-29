@@ -35,7 +35,7 @@ public:
         shop = new Shop();
         console.resize(5);
 		gameLoop = true;
-        basic_setup = false;
+        basic_setup = true;
     }
 
     void HelpMEPLS() {
